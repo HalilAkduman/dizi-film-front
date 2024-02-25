@@ -1,0 +1,20 @@
+@if (!showValidationScreen) {
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <label for="first-name">isim: </label>
+    <input id="first-name" type="text" formControlName="name">
+    <label for="first-name">soyisim: </label>
+    <input id="first-name" type="text" formControlName="surname">
+    <label for="first-name">Email: </label>
+    <input id="first-name" type="text" formControlName="email">
+    <label for="first-name">sifre: </label>
+    <input id="first-name" type="text" formControlName="sifre">
+    <label for="first-name">role: </label>
+    <input id="first-name" type="text" formControlName="role">
+    <button type="submit">Devam Et</button>
+</form>
+} @else {
+<h3>Kalan Süre {{count}} </h3>
+<label for="validation">Kodu Giriniz: </label>
+<input id="validation" type="text" [(ngModel)]="validationCode">
+<button (click)="register()">Kayıt Ol</button>
+}
