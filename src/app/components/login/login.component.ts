@@ -22,8 +22,8 @@ export class LoginComponent {
   constructor() {
     this.form = this.fb.group(
       {
-        email: ['bilen.zafer@hotmail.com', Validators.required],
-        sifre: ['Zafer9707.', Validators.required]
+        email: ['halil_akduman@hotmail.com', Validators.required],
+        sifre: ['123456a.A', Validators.required]
       }
     )
   }

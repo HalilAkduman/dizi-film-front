@@ -21,7 +21,7 @@ export function ApiInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): 
     });
 
 
-    let url = req.url.replace('localhost:8080', '192.168.1.26:8080');
+    let url = req.url.replace('192.168.1.26:8080', 'localhost:8080');
     const dupReq = req.clone({
         url: url,
         headers: req.headers.set('Authorization', `Bearer ` + (user ? user.token! : '')),
