@@ -1,8 +1,12 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
     <span>Film-Dizi</span>
     <span class="example-spacer"></span>
-    <button mat-button color="primary" routerLink="giris-yap">Login</button>
-    <button mat-button color="accent" routerLink="kayıt-ol">Kayıt Ol</button>
-    <button mat-button color="warn" routerLink="ana-sayfa">Ana Sayfa</button>
-    <button mat-button color="warn" routerLink="admin">Admin</button>
+    @if (user) {
+    <button mat-button routerLink="admin">Admin</button>
+    <button mat-button routerLink="ana-sayfa">Ana Sayfa</button>
+    <h2 class="greeting">Hoşgeldin, {{user.name}} {{user.surname}}</h2>
+    } @else {
+    <button mat-button routerLink="giris-yap">Login</button>
+    <button mat-button routerLink="kayıt-ol">Kayıt Ol</button>
+    }
 </mat-toolbar>

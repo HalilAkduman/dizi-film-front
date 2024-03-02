@@ -3,6 +3,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AnaSayfaComponent } from './components/ana-sayfa/ana-sayfa.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { DiziTableComponent } from './components/admin/dizi-table/dizi-table.component';
+import { FilmTableComponent } from './components/admin/film-dizi/film-dizi.component';
 
 export const routes: Routes = [
     {
@@ -19,5 +21,11 @@ export const routes: Routes = [
     },
     {
         path: 'admin', component: AdminHomeComponent
+    },
+    {
+        path: 'dizi-repo', component: DiziTableComponent
+    },
+    {
+        path: 'film-repo', component: FilmTableComponent
     },
 ];

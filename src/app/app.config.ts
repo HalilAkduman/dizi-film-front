@@ -10,5 +10,6 @@ import { APIS } from '../../dist/api-client-lib';
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideHttpClient(withInterceptors([
     ApiInterceptor
-  ])), provideAnimationsAsync(), APIS]
+  ])), provideAnimationsAsync(), APIS,
+]
 };
