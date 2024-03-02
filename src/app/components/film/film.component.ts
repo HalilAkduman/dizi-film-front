@@ -18,7 +18,7 @@ export class FilmComponent {
     this.authService._currentUser.subscribe(res => {
       console.log(res);
     })
-    this.filmService.getAllLessons().subscribe(res => {
+    this.filmService.adminGetAllFilms().subscribe(res => {
       this.films = res;
     })
   }

@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
     let req = this.form.controls['email'].value;
 
     this.kullaniciService.dogrulamaKodu(req).subscribe(res => {
+      console.log(res);
       this.showValidationScreen = true;
     })
   }
