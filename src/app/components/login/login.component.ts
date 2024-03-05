@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiModule, KullaniciControllerService, KullaniciGirisRequests } from '../../../../dist/api-client-lib';
 import { NgIf } from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageService } from '../utils/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,16 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   fb = inject(FormBuilder);
   kullaniciService = inject(KullaniciControllerService);
   authService = inject(AuthService);
   router = inject(Router);
   responseText: string = '';
   form: FormGroup;
+  localStorageService = inject(LocalStorageService);
+  activatedRouter = inject(ActivatedRoute);
+
   constructor() {
     this.form = this.fb.group(
       {
@@ -26,6 +30,11 @@ export class LoginComponent {
         sifre: ['123456a.A', Validators.required]
       }
     )
+  }
+  ngOnInit(): void {
+    if (this.localStorageService.getItem('user')) {
+      this.router.navigateByUrl('ana-sayfa');
+    }
   }
 
 
@@ -35,6 +44,7 @@ export class LoginComponent {
     this.kullaniciService.login(req).subscribe(res => {
       this.responseText = 'Başarı ile giriş yapıldı';
       this.authService.setUser(res);
+      this.localStorageService.setItem('user', JSON.stringify(res))
       this.router.navigateByUrl('ana-sayfa')
     })
   }

@@ -29,7 +29,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class FavoriDizilerControllerService {
 
-    protected basePath = 'http://192.168.1.26:8080';
+    protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -65,9 +65,9 @@ export class FavoriDizilerControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addFavoriDizi(body: AddFavoriDiziRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public addFavoriDizi(body: AddFavoriDiziRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public addFavoriDizi(body: AddFavoriDiziRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public addFavoriDizi(body: AddFavoriDiziRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addFavoriDizi(body: AddFavoriDiziRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addFavoriDizi(body: AddFavoriDiziRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public addFavoriDizi(body: AddFavoriDiziRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -94,7 +94,7 @@ export class FavoriDizilerControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('post',`${this.basePath}/favori-diziler/addFavoriDizi`,
+        return this.httpClient.request<any>('post',`${this.basePath}/favori-diziler/addFavoriDizi`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -148,9 +148,9 @@ export class FavoriDizilerControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeFavoriteDizi(body: RemoveFavoriDiziRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public removeFavoriteDizi(body: RemoveFavoriDiziRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public removeFavoriteDizi(body: RemoveFavoriDiziRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public removeFavoriteDizi(body: RemoveFavoriDiziRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeFavoriteDizi(body: RemoveFavoriDiziRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeFavoriteDizi(body: RemoveFavoriDiziRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public removeFavoriteDizi(body: RemoveFavoriDiziRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -177,7 +177,7 @@ export class FavoriDizilerControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('delete',`${this.basePath}/favori-diziler/removeFavoriteDizi`,
+        return this.httpClient.request<any>('delete',`${this.basePath}/favori-diziler/removeFavoriteDizi`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

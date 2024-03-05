@@ -31,7 +31,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class DiziCategoryControllerService {
 
-    protected basePath = 'http://192.168.1.26:8080';
+    protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -67,9 +67,9 @@ export class DiziCategoryControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add1(body: CreateDiziCategoryRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public add1(body: CreateDiziCategoryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public add1(body: CreateDiziCategoryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public add1(body: CreateDiziCategoryRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public add1(body: CreateDiziCategoryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public add1(body: CreateDiziCategoryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public add1(body: CreateDiziCategoryRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -96,7 +96,7 @@ export class DiziCategoryControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('post',`${this.basePath}/dizi-categori/admin/add-dizi-category`,
+        return this.httpClient.request<any>('post',`${this.basePath}/dizi-categori/admin/add-dizi-category`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -150,9 +150,9 @@ export class DiziCategoryControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public delete1(id: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public delete1(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public delete1(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public delete1(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public delete1(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public delete1(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public delete1(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -174,7 +174,7 @@ export class DiziCategoryControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('delete',`${this.basePath}/dizi-categori/admin/delete-dizi-category/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<any>('delete',`${this.basePath}/dizi-categori/admin/delete-dizi-category/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -268,9 +268,9 @@ export class DiziCategoryControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update1(body: UpdateDiziCategoryRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public update1(body: UpdateDiziCategoryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public update1(body: UpdateDiziCategoryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public update1(body: UpdateDiziCategoryRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public update1(body: UpdateDiziCategoryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public update1(body: UpdateDiziCategoryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public update1(body: UpdateDiziCategoryRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -297,7 +297,7 @@ export class DiziCategoryControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('put',`${this.basePath}/dizi-categori/admin/add-dizi-category`,
+        return this.httpClient.request<any>('put',`${this.basePath}/dizi-categori/admin/add-dizi-category`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

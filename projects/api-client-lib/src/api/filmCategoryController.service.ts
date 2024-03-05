@@ -31,7 +31,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class FilmCategoryControllerService {
 
-    protected basePath = 'http://192.168.1.26:8080';
+    protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -67,9 +67,9 @@ export class FilmCategoryControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public _delete(id: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public _delete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public _delete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public _delete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public _delete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public _delete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public _delete(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -91,7 +91,7 @@ export class FilmCategoryControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('delete',`${this.basePath}/film-categori/admin/delete-film-category/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<any>('delete',`${this.basePath}/film-categori/admin/delete-film-category/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -108,9 +108,9 @@ export class FilmCategoryControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(body: CreateFilmCategoryRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public add(body: CreateFilmCategoryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public add(body: CreateFilmCategoryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public add(body: CreateFilmCategoryRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public add(body: CreateFilmCategoryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public add(body: CreateFilmCategoryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public add(body: CreateFilmCategoryRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -137,7 +137,7 @@ export class FilmCategoryControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('post',`${this.basePath}/film-categori/admin/add-film-category`,
+        return this.httpClient.request<any>('post',`${this.basePath}/film-categori/admin/add-film-category`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -268,9 +268,9 @@ export class FilmCategoryControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(body: UpdateFilmCategoryRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public update(body: UpdateFilmCategoryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public update(body: UpdateFilmCategoryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public update(body: UpdateFilmCategoryRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public update(body: UpdateFilmCategoryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public update(body: UpdateFilmCategoryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public update(body: UpdateFilmCategoryRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -297,7 +297,7 @@ export class FilmCategoryControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('put',`${this.basePath}/film-categori/admin/update-film-category`,
+        return this.httpClient.request<any>('put',`${this.basePath}/film-categori/admin/update-film-category`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

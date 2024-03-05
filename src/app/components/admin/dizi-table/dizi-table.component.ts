@@ -1,29 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { BackButtonDirective } from 'app/components/utils/back-button.directive';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+import { AdminGetAllDiziResponse, CreateDiziRequest, DiziBolumleriResponse, DiziControllerService } from '../../../../../dist/api-client-lib';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-dizi-table',
@@ -34,43 +18,207 @@ const ELEMENT_DATA: PeriodicElement[] = [
     MatButtonModule,
     BackButtonDirective,
     MatTableModule,
-
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    NgIf
   ],
 
   template: `
+  <div class="container">
   <button mat-raised-button color="primary" class="m-5" backButton> <-- Geri Dön</button>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-<ng-container matColumnDef="position">
-  <th mat-header-cell *matHeaderCellDef> No. </th>
-  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-</ng-container>
-
-<ng-container matColumnDef="name">
-  <th mat-header-cell *matHeaderCellDef> Name </th>
-  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-</ng-container>
-
-<ng-container matColumnDef="weight">
-  <th mat-header-cell *matHeaderCellDef> Weight </th>
-  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-</ng-container>
-
-<ng-container matColumnDef="symbol">
-  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-</ng-container>
-
-<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <div class="row">
+    <div class="col-6">
+      <table *ngIf="dataSource.length !== 0 " mat-table [dataSource]="dataSource " class="mat-elevation-z8">
+          <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> id </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="konu">
+            <th mat-header-cell *matHeaderCellDef> konu </th>
+            <td mat-cell *matCellDef="let element"> {{element.konu}} </td>
+          </ng-container>
+          <ng-container matColumnDef="diziCategoryName">
+            <th mat-header-cell *matHeaderCellDef> diziCategoryName </th>
+            <td mat-cell *matCellDef="let element"> {{element.diziCategoryName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+            <button class="mx-2" mat-raised-button color="primary">Düzenle</button>
+            <button mat-raised-button color="warn">Sil</button>
+          </td>
+          </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRow(row)"></tr>
 </table>
+      </div>
+      <div class="col-6">
+      <form [formGroup]="form" (ngSubmit)="edit()" class="mt-5">
+      <div class="d-flex justify-content-center align-items-center flex-column">
+      <h1>Dizi Ekle</h1>
+     <mat-form-field>
+          <mat-label>kapak:</mat-label>
+          <input formControlName="kapak" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>fragman:</mat-label>
+          <input formControlName="fragman" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>name:</mat-label>
+          <input formControlName="name" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>konu:</mat-label>
+          <input formControlName="konu" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>diziCategoryId:</mat-label>
+          <input type="number" formControlName="diziCategoryId" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>yili:</mat-label>
+          <input formControlName="yili" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>yonetmen:</mat-label>
+          <input formControlName="yonetmen" matInput>
+        </mat-form-field>
+        <ng-container formArrayName="bolums">
+        <ng-container *ngFor="let bolumForm of bolums.controls ; let i = index" [formGroupName]="i">
+            <div class="lesson-form-row" >
+                <mat-form-field appearance="fill">
+                    <input matInput
+                           formControlName="bolum"
+                           placeholder="Bölüm ismi">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <input matInput
+                           formControlName="upload"
+                           placeholder="upload">
+                </mat-form-field>
+                <button (click)="deleteLesson(i)"> Sil </button>
+            </div>
+        </ng-container>
+    </ng-container>
+  
+    <button mat-raised-button (click)="addLesson()">
+        add
+    </button>
+        <button mat-raised-button color="primary" type="submit">Ekle</button>
+      </div>
+    </form>
+        </div>
+      </div>
+  </div>
+  
 
   `,
   styleUrl: './dizi-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DiziTableComponent {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+export class DiziTableComponent implements OnInit {
 
+  dataSource!: AdminGetAllDiziResponse[];
+  diziService = inject(DiziControllerService);
+  displayedColumns: string[] = ['name', 'konu', 'diziCategoryName', 'actions'];
+  form: FormGroup;
+  selectedDizi: AdminGetAllDiziResponse = Object.create(null);
+
+  deleteThisOne: AdminGetAllDiziResponse = {
+    bolum: [
+      {
+        bolum: 'Bölüm 1'
+      },
+      {
+        bolum: 'Bölüm 2'
+      },
+      {
+        bolum: 'Bölüm 3'
+      },
+    ],
+    diziCategoryName: 'Korku',
+    id: 1,
+    kapakPath: 'yok',
+    konu: 'denemelik',
+    name: 'Interstaller'
+  }
+
+  constructor(private fb: FormBuilder) {
+    this.form = fb.group(
+      {
+        kapak: [''],
+        fragman: [''],
+        name: [''],
+        konu: [''],
+        diziCategoryId: [''],
+        yili: [''],
+        yonetmen: [''],
+        bolums: this.fb.array([])
+      }
+    )
+  }
+
+  ngOnInit(): void {
+    this.diziService.adminGetAllDizi().subscribe(res => {
+      console.log(res);
+      this.dataSource = res;
+    });
+  }
+
+  addLesson() {
+    const lessonForm = this.fb.group({
+      bolum: ['', Validators.required],
+      upload: ['', Validators.required]
+    });
+
+    this.bolums.push(lessonForm);
+  }
+
+  deleteLesson(lessonIndex: number) {
+    this.bolums.removeAt(lessonIndex);
+  }
+
+  setForm() {
+    //todo :  upload kısmına bölüm.path gelecek
+    this.selectedDizi.bolum?.forEach(bolum => {
+      this.form = this.fb.group(
+        {
+          bolum: [bolum.bolum, Validators.required],
+          upload: ['', Validators.required]
+        }
+      )
+    })
+  }
+
+
+  edit() {
+    let req: CreateDiziRequest = {
+      diziCategoryId: this.form.controls['diziCategoryId'].value,
+      konu: this.form.controls['konu'].value,
+      name: this.form.controls['name'].value,
+      yili: this.form.controls['yili'].value,
+      yonetmen: this.form.controls['yonetmen'].value
+    }
+    this.diziService.addDizi(req).subscribe(res => {
+      console.log(res);
+    })
+    console.log(req);
+  }
+
+
+  getRow(row: any) {
+    this.selectedDizi = row;
+    this.setForm()
+  }
+
+  get bolums() {
+    return this.form.controls["bolums"] as FormArray;
+  }
 }

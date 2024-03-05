@@ -29,7 +29,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class FavoriFilmlerControllerService {
 
-    protected basePath = 'http://192.168.1.26:8080';
+    protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -65,9 +65,9 @@ export class FavoriFilmlerControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addFavoriFilm(body: AddFavoriFilmRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public addFavoriFilm(body: AddFavoriFilmRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public addFavoriFilm(body: AddFavoriFilmRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public addFavoriFilm(body: AddFavoriFilmRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addFavoriFilm(body: AddFavoriFilmRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addFavoriFilm(body: AddFavoriFilmRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public addFavoriFilm(body: AddFavoriFilmRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -94,7 +94,7 @@ export class FavoriFilmlerControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('post',`${this.basePath}/favori-filmler/addFavoriFilm`,
+        return this.httpClient.request<any>('post',`${this.basePath}/favori-filmler/addFavoriFilm`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -148,9 +148,9 @@ export class FavoriFilmlerControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public removeFavoriteFilm(body: RemoveFavoriFilmRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public removeFavoriteFilm(body: RemoveFavoriFilmRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public removeFavoriteFilm(body: RemoveFavoriFilmRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public removeFavoriteFilm(body: RemoveFavoriFilmRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public removeFavoriteFilm(body: RemoveFavoriFilmRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public removeFavoriteFilm(body: RemoveFavoriFilmRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public removeFavoriteFilm(body: RemoveFavoriFilmRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -177,7 +177,7 @@ export class FavoriFilmlerControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('delete',`${this.basePath}/favori-filmler/removeFavoriteFilm`,
+        return this.httpClient.request<any>('delete',`${this.basePath}/favori-filmler/removeFavoriteFilm`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

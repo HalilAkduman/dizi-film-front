@@ -10,13 +10,7 @@ export class AuthService {
 
   constructor() { }
 
-  // get currentUser() {
-  //   return this._currentUser.subscribe(res => {
-
-  //   })
-  // }
-
-  setUser(user: AuthenticationGirisResponse) {
+  setUser(user: AuthenticationGirisResponse | null) {
     this._currentUser.next(user);
   }
 }

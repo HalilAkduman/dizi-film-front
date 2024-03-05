@@ -30,7 +30,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class KullaniciControllerService {
 
-    protected basePath = 'http://192.168.1.26:8080';
+    protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -101,9 +101,9 @@ export class KullaniciControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public cikis(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public cikis(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public cikis(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public cikis(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public cikis(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public cikis(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public cikis(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -121,7 +121,7 @@ export class KullaniciControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('post',`${this.basePath}/cikis`,
+        return this.httpClient.request<any>('post',`${this.basePath}/cikis`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -137,9 +137,9 @@ export class KullaniciControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteMyAccount(observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public deleteMyAccount(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public deleteMyAccount(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public deleteMyAccount(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteMyAccount(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteMyAccount(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public deleteMyAccount(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -157,7 +157,7 @@ export class KullaniciControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('delete',`${this.basePath}/kullanici/hesap-sil`,
+        return this.httpClient.request<any>('delete',`${this.basePath}/kullanici/hesap-sil`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -174,9 +174,9 @@ export class KullaniciControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteUser(id: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public deleteUser(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public deleteUser(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public deleteUser(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteUser(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteUser(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public deleteUser(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -198,7 +198,7 @@ export class KullaniciControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('delete',`${this.basePath}/kullanici/sil/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<any>('delete',`${this.basePath}/kullanici/sil/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

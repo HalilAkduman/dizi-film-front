@@ -31,7 +31,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class BolumControllerService {
 
-    protected basePath = 'http://192.168.1.26:8080';
+    protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -67,9 +67,9 @@ export class BolumControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addBolum(addBolumRequest: AddBolumRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public addBolum(addBolumRequest: AddBolumRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public addBolum(addBolumRequest: AddBolumRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public addBolum(addBolumRequest: AddBolumRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addBolum(addBolumRequest: AddBolumRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addBolum(addBolumRequest: AddBolumRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public addBolum(addBolumRequest: AddBolumRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (addBolumRequest === null || addBolumRequest === undefined) {
@@ -96,7 +96,7 @@ export class BolumControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('post',`${this.basePath}/bolum/admin/addbolum`,
+        return this.httpClient.request<any>('post',`${this.basePath}/bolum/admin/addbolum`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -150,9 +150,9 @@ export class BolumControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteBolum(id: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public deleteBolum(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public deleteBolum(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public deleteBolum(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteBolum(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteBolum(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public deleteBolum(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -174,7 +174,7 @@ export class BolumControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<string>('delete',`${this.basePath}/bolum/admin/deletebolum/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<any>('delete',`${this.basePath}/bolum/admin/deletebolum/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -227,9 +227,9 @@ export class BolumControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateBolum(body: UpdateBolumRequest, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public updateBolum(body: UpdateBolumRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public updateBolum(body: UpdateBolumRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public updateBolum(body: UpdateBolumRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updateBolum(body: UpdateBolumRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updateBolum(body: UpdateBolumRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public updateBolum(body: UpdateBolumRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -256,7 +256,7 @@ export class BolumControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('put',`${this.basePath}/bolum/admin/updatebolum`,
+        return this.httpClient.request<any>('put',`${this.basePath}/bolum/admin/updatebolum`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -275,9 +275,9 @@ export class BolumControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadBolum(bolumId: number, body?: BolumIdUploadbolumBody, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public uploadBolum(bolumId: number, body?: BolumIdUploadbolumBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public uploadBolum(bolumId: number, body?: BolumIdUploadbolumBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public uploadBolum(bolumId: number, body?: BolumIdUploadbolumBody, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public uploadBolum(bolumId: number, body?: BolumIdUploadbolumBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public uploadBolum(bolumId: number, body?: BolumIdUploadbolumBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public uploadBolum(bolumId: number, body?: BolumIdUploadbolumBody, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (bolumId === null || bolumId === undefined) {
@@ -305,7 +305,7 @@ export class BolumControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<string>('post',`${this.basePath}/bolum/admin/${encodeURIComponent(String(bolumId))}/upload-bolum`,
+        return this.httpClient.request<any>('post',`${this.basePath}/bolum/admin/${encodeURIComponent(String(bolumId))}/upload-bolum`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

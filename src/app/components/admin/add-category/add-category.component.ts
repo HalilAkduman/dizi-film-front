@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
-import { CreateFilmCategoryRequest, CreateFilmRequest, FilmCategoryControllerService, KullaniciControllerService, KullaniciGirisRequests } from '../../../../../dist/api-client-lib';
+import { AdminGetAllCategoryResponse, CreateFilmCategoryRequest, CreateFilmRequest, FilmCategoryControllerService, KullaniciControllerService, KullaniciGirisRequests } from '../../../../../dist/api-client-lib';
 import { SnackbarService } from 'app/components/utils/snackbar.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,9 +17,19 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    NgFor,
+    NgIf
   ],
   template: `
+  <ng-container *ngIf="categories && categories.length !==0"> 
+  <ng-container *ngFor="let bolumForm of categories ; let i = index">
+          <p> <b>Id</b> : {{bolumForm.id}} </p>
+          <p> <b>Name</b> : {{bolumForm.name}} </p>
+          <hr>
+    </ng-container>
+</ng-container>
+ 
    <form [formGroup]="categoryform" (ngSubmit)="submit()" class="mt-5">
     <div class="d-flex justify-content-center align-items-center flex-column">
       <h1>Kategori Ekle</h1>
@@ -60,13 +70,14 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './add-category.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddCategoryComponent {
+export class AddCategoryComponent implements OnInit {
   fb = inject(FormBuilder);
   snackbar = inject(SnackbarService);
   kategoryService = inject(FilmCategoryControllerService);
   responseText: string = '';
   categoryform: FormGroup;
   addFilmform: FormGroup;
+  categories !: AdminGetAllCategoryResponse[];
   constructor() {
     this.categoryform = this.fb.group(
       {
@@ -83,6 +94,9 @@ export class AddCategoryComponent {
       }
     )
   }
+  ngOnInit(): void {
+    this.getAllCategories();
+  }
   submit() {
     let req: CreateFilmCategoryRequest = this.categoryform.value;
     console.log(req);
@@ -97,6 +111,13 @@ export class AddCategoryComponent {
 
     this.kategoryService.add(req).subscribe(res => {
       this.snackbar.openSnackBar('Kategori Eklendi')
+    })
+  }
+  getAllCategories() {
+    this.kategoryService.adminGetAllCategoryResponse().subscribe(res => {
+      this.categories = res;
+      console.log(res);
+
     })
   }
 }
