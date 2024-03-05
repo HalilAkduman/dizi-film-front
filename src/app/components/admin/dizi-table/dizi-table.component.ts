@@ -1,13 +1,14 @@
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { BackButtonDirective } from 'app/components/utils/back-button.directive';
-import { AdminGetAllDiziResponse, CreateDiziRequest, DiziBolumleriResponse, DiziControllerService } from '../../../../../dist/api-client-lib';
+import { AddBolumRequest, AdminGetAllDiziResponse, BolumControllerService, CreateDiziRequest, DiziBolumleriResponse, DiziControllerService, DiziIdUploadfragmanBody, DiziIdUploadkapakBody } from '../../../../../dist/api-client-lib';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SnackbarService } from 'app/components/utils/snackbar.service';
 
 @Component({
   selector: 'app-dizi-table',
@@ -21,7 +22,8 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    NgFor
   ],
 
   template: `
@@ -46,10 +48,19 @@ import { MatInputModule } from '@angular/material/input';
             <th mat-header-cell *matHeaderCellDef> diziCategoryName </th>
             <td mat-cell *matCellDef="let element"> {{element.diziCategoryName}} </td>
           </ng-container>
+
+          <ng-container matColumnDef="bolum">
+            <th mat-header-cell *matHeaderCellDef> Bölümler </th>
+            <td mat-cell *matCellDef="let element">
+             <ng-container *ngFor="let bolum of element.bolum"> 
+             {{bolum.bolum}}, 
+             </ng-container>
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-            <button class="mx-2" mat-raised-button color="primary">Düzenle</button>
             <button mat-raised-button color="warn">Sil</button>
           </td>
           </ng-container>
@@ -107,8 +118,8 @@ import { MatInputModule } from '@angular/material/input';
             </div>
         </ng-container>
     </ng-container>
-  
-    <button mat-raised-button (click)="addLesson()">
+    Bölüm Ekle
+    <button type="button" mat-raised-button (click)="addLesson()">
         add
     </button>
         <button mat-raised-button color="primary" type="submit">Ekle</button>
@@ -124,10 +135,11 @@ import { MatInputModule } from '@angular/material/input';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DiziTableComponent implements OnInit {
-
+  snackbar = inject(SnackbarService);
   dataSource!: AdminGetAllDiziResponse[];
   diziService = inject(DiziControllerService);
-  displayedColumns: string[] = ['name', 'konu', 'diziCategoryName', 'actions'];
+  bolumService = inject(BolumControllerService);
+  displayedColumns: string[] = ['name', 'konu', 'diziCategoryName', 'bolum', 'actions'];
   form: FormGroup;
   selectedDizi: AdminGetAllDiziResponse = Object.create(null);
 
@@ -169,6 +181,7 @@ export class DiziTableComponent implements OnInit {
     this.diziService.adminGetAllDizi().subscribe(res => {
       console.log(res);
       this.dataSource = res;
+      this.dataSource.push(this.deleteThisOne)
     });
   }
 
@@ -199,6 +212,7 @@ export class DiziTableComponent implements OnInit {
 
 
   edit() {
+
     let req: CreateDiziRequest = {
       diziCategoryId: this.form.controls['diziCategoryId'].value,
       konu: this.form.controls['konu'].value,
@@ -207,9 +221,30 @@ export class DiziTableComponent implements OnInit {
       yonetmen: this.form.controls['yonetmen'].value
     }
     this.diziService.addDizi(req).subscribe(res => {
-      console.log(res);
+      if (res) {
+        console.log(res);
+        this.diziService.uploadFragman1(res.id, this.form.controls['fragman'].value).subscribe(res => {
+          console.log(res);
+        });
+        this.diziService.uploadKapak1(res.id, this.form.controls['kapak'].value).subscribe(res => {
+          console.log(res);
+        });
+        for (let i = 0; i < this.bolums.length; i++) {
+          console.log(this.bolums.at(i).get('bolum')!.value);
+          const req: AddBolumRequest = {
+            bolum: this.bolums.at(i).get('bolum')!.value(),
+            diziId: res.id
+          }
+          this.bolumService.addBolum(req).subscribe(res => {
+            this.bolumService.uploadBolum(res.id, this.bolums.at(i).get('upload')!.value()).subscribe(res => {
+              this.snackbar.openSnackBar('Dizi Eklendi')
+            })
+          })
+        }
+
+
+      }
     })
-    console.log(req);
   }
 
 
