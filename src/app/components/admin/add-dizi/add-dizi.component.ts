@@ -2,7 +2,7 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { AdminGetAllCategoryResponse, CreateDiziCategoryRequest, CreateDiziRequest, CreateFilmCategoryRequest, CreateFilmRequest, DiziCategoryControllerService, FilmCategoryControllerService, KullaniciControllerService, KullaniciGirisRequests } from '../../../../../dist/api-client-lib';
+import { AdminGetAllCategoryResponse, AdminGetAllDiziCategoryResponse, CreateDiziCategoryRequest, CreateDiziRequest, CreateFilmCategoryRequest, CreateFilmRequest, DiziCategoryControllerService, FilmCategoryControllerService, KullaniciControllerService, KullaniciGirisRequests } from '../../../../../dist/api-client-lib';
 import { SnackbarService } from 'app/components/utils/snackbar.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,7 +23,7 @@ import { MatInputModule } from '@angular/material/input';
   template: `
   <ng-container *ngIf="categories && categories.length !==0"> 
   <ng-container *ngFor="let bolumForm of categories ; let i = index">
-          <p> <b>Id</b> : {{bolumForm.fkid}} </p>
+          <p> <b>Id</b> : {{bolumForm.dkid}} </p>
           <p> <b>Name</b> : {{bolumForm.name}} </p>
           <hr>
     </ng-container>
@@ -69,7 +69,7 @@ import { MatInputModule } from '@angular/material/input';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddDiziComponent implements OnInit {
-  categories !: AdminGetAllCategoryResponse[];
+  categories !: AdminGetAllDiziCategoryResponse[];
 
   fb = inject(FormBuilder);
   snackbar = inject(SnackbarService);

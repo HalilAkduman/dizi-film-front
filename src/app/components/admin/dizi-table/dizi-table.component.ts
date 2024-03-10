@@ -9,6 +9,8 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SnackbarService } from 'app/components/utils/snackbar.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dizi-table',
@@ -134,6 +136,7 @@ export class DiziTableComponent implements OnInit {
   dataSource!: AdminGetAllDiziResponse[];
   diziService = inject(DiziControllerService);
   bolumService = inject(BolumControllerService);
+  http = inject(HttpClient);
   displayedColumns: string[] = ['name', 'konu', 'diziCategoryName', 'bolum', 'actions'];
   form: FormGroup;
   selectedDizi: AdminGetAllDiziResponse = Object.create(null);
@@ -221,14 +224,14 @@ export class DiziTableComponent implements OnInit {
           file: this.kapak
         }
         let uploadFragmanReq: DiziIdUploadfragmanBody = {
-          file: this.kapak
+          file: this.fragman
         }
-        this.diziService.uploadFragman1(res.id!, uploadFragmanReq).subscribe(res => {
-          console.log('FRAGMAN EKLENDİ ----->', res);
-        });
-        this.diziService.uploadKapak1(res.id!, uploadKapakReq).subscribe(res => {
-          console.log('KAPAK EKLENDİ ----->', res);
-        });
+        this.upload(this.kapak, `http://localhost:8080/dizi/admin/${res.id!}/upload-kapak`).subscribe(res => {
+          console.log('kapak');
+        })
+        this.upload(this.fragman, `http://localhost:8080/dizi/admin/${res.id!}/upload-fragman`).subscribe(res => {
+          console.log('fragman');
+        })
         for (let i = 0; i < this.bolums.length; i++) {
           console.log(this.bolums.at(i).get('bolum')!.value);
           const req: AddBolumRequest = {
@@ -248,6 +251,17 @@ export class DiziTableComponent implements OnInit {
   }
 
 
+  public upload(file: File, path: string): Observable<any> {
+    let formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.http.post(path, formData, { reportProgress: true, observe: 'events', headers, responseType: 'text' });
+  }
+
+
   getRow(row: any) {
     this.selectedDizi = row;
     this.setForm()
@@ -257,16 +271,14 @@ export class DiziTableComponent implements OnInit {
     return this.form.controls["bolums"] as FormArray;
   }
 
-  kapak!: Blob;
-  fragman!: Blob;
+  kapak!: File;
+  fragman!: File;
 
   onKapakSelected(event: any): void {
-    this.kapak = new Blob([event.target.files[0]]);
-    console.log(this.kapak);
+    this.kapak = event.target.files[0];
 
   }
   onFragmanSelected(event: any): void {
-    this.fragman = new Blob([event.target.files[0]]);
-    console.log(this.fragman);
+    this.fragman = event.target.files[0];
   }
 }
