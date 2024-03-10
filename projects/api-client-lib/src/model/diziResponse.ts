@@ -10,7 +10,13 @@
  * Do not edit the class manually.
  */
 
-export interface UpdateDiziCategoryRequest { 
-    dkid?: number;
+export interface DiziResponse { 
+    id?: number;
     name?: string;
+    konu?: string;
+    yili?: string;
+    yonetmen?: string;
+    kapakPath?: string;
+    fragmanPath?: string;
+    diziCategoryDkid?: number;
 }

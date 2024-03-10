@@ -11,6 +11,6 @@
  */
 
 export interface AdminGetAllDiziCategoryResponse { 
-    id?: number;
+    dkid?: number;
     name?: string;
 }

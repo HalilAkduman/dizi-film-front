@@ -11,6 +11,6 @@
  */
 
 export interface AdminGetAllCategoryResponse { 
-    id?: number;
+    fkid?: number;
     name?: string;
 }

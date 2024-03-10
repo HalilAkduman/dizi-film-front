@@ -10,7 +10,14 @@
  * Do not edit the class manually.
  */
 
-export interface UpdateDiziCategoryRequest { 
-    dkid?: number;
+export interface FilmResponse { 
+    id?: number;
     name?: string;
+    konu?: string;
+    yili?: string;
+    yonetmen?: string;
+    kapakPath?: string;
+    fragmanPath?: string;
+    filmPath?: string;
+    filmCategoryFkid?: number;
 }

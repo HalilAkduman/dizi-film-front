@@ -16,5 +16,5 @@ export interface UpdateFilmRequest {
     konu?: string;
     yili?: string;
     yonetmen?: string;
-    filmCategoryId?: number;
+    filmCategoryFkid?: number;
 }

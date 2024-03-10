@@ -15,5 +15,5 @@ export interface CreateDiziRequest {
     konu?: string;
     yili?: string;
     yonetmen?: string;
-    diziCategoryId?: number;
+    diziCategoryDkid?: number;
 }

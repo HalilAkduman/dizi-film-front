@@ -21,6 +21,7 @@ import { AdminGetAllDiziResponse } from '../model/adminGetAllDiziResponse';
 import { CreateDiziRequest } from '../model/createDiziRequest';
 import { DiziIdUploadfragmanBody } from '../model/diziIdUploadfragmanBody';
 import { DiziIdUploadkapakBody } from '../model/diziIdUploadkapakBody';
+import { DiziResponse } from '../model/diziResponse';
 import { GetAllDiziResponse } from '../model/getAllDiziResponse';
 import { GetDiziByNameResponse } from '../model/getDiziByNameResponse';
 import { ProblemDetails } from '../model/problemDetails';
@@ -69,9 +70,9 @@ export class DiziControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addDizi(body: CreateDiziRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addDizi(body: CreateDiziRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addDizi(body: CreateDiziRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addDizi(body: CreateDiziRequest, observe?: 'body', reportProgress?: boolean): Observable<DiziResponse>;
+    public addDizi(body: CreateDiziRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DiziResponse>>;
+    public addDizi(body: CreateDiziRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DiziResponse>>;
     public addDizi(body: CreateDiziRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -98,7 +99,7 @@ export class DiziControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/dizi/admin/add-dizi`,
+        return this.httpClient.request<DiziResponse>('post',`${this.basePath}/dizi/admin/add-dizi`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -152,9 +153,9 @@ export class DiziControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteDizi(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteDizi(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteDizi(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteDizi(id: number, observe?: 'body', reportProgress?: boolean): Observable<DiziResponse>;
+    public deleteDizi(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DiziResponse>>;
+    public deleteDizi(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DiziResponse>>;
     public deleteDizi(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -176,7 +177,7 @@ export class DiziControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('delete',`${this.basePath}/dizi/admin/deletedizi/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<DiziResponse>('delete',`${this.basePath}/dizi/admin/deletedizi/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -270,9 +271,9 @@ export class DiziControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateDizi(body: UpdateDiziRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateDizi(body: UpdateDiziRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateDizi(body: UpdateDiziRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateDizi(body: UpdateDiziRequest, observe?: 'body', reportProgress?: boolean): Observable<DiziResponse>;
+    public updateDizi(body: UpdateDiziRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DiziResponse>>;
+    public updateDizi(body: UpdateDiziRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DiziResponse>>;
     public updateDizi(body: UpdateDiziRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -299,7 +300,7 @@ export class DiziControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('put',`${this.basePath}/dizi/admin/update-dizi`,
+        return this.httpClient.request<DiziResponse>('put',`${this.basePath}/dizi/admin/update-dizi`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -318,9 +319,9 @@ export class DiziControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadFragman1(diziId: number, body?: DiziIdUploadfragmanBody, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public uploadFragman1(diziId: number, body?: DiziIdUploadfragmanBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public uploadFragman1(diziId: number, body?: DiziIdUploadfragmanBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadFragman1(diziId: number, body?: DiziIdUploadfragmanBody, observe?: 'body', reportProgress?: boolean): Observable<DiziResponse>;
+    public uploadFragman1(diziId: number, body?: DiziIdUploadfragmanBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DiziResponse>>;
+    public uploadFragman1(diziId: number, body?: DiziIdUploadfragmanBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DiziResponse>>;
     public uploadFragman1(diziId: number, body?: DiziIdUploadfragmanBody, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (diziId === null || diziId === undefined) {
@@ -348,7 +349,7 @@ export class DiziControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/dizi/admin/${encodeURIComponent(String(diziId))}/upload-fragman`,
+        return this.httpClient.request<DiziResponse>('post',`${this.basePath}/dizi/admin/${encodeURIComponent(String(diziId))}/upload-fragman`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -367,9 +368,9 @@ export class DiziControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadKapak1(diziId: number, body?: DiziIdUploadkapakBody, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public uploadKapak1(diziId: number, body?: DiziIdUploadkapakBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public uploadKapak1(diziId: number, body?: DiziIdUploadkapakBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadKapak1(diziId: number, body?: DiziIdUploadkapakBody, observe?: 'body', reportProgress?: boolean): Observable<DiziResponse>;
+    public uploadKapak1(diziId: number, body?: DiziIdUploadkapakBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DiziResponse>>;
+    public uploadKapak1(diziId: number, body?: DiziIdUploadkapakBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DiziResponse>>;
     public uploadKapak1(diziId: number, body?: DiziIdUploadkapakBody, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (diziId === null || diziId === undefined) {
@@ -397,7 +398,7 @@ export class DiziControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/dizi/admin/${encodeURIComponent(String(diziId))}/upload-kapak`,
+        return this.httpClient.request<DiziResponse>('post',`${this.basePath}/dizi/admin/${encodeURIComponent(String(diziId))}/upload-kapak`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

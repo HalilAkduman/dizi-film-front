@@ -15,5 +15,5 @@ export interface CreateFilmRequest {
     konu?: string;
     yili?: string;
     yonetmen?: string;
-    filmCategoryId?: number;
+    filmCategoryFkid?: number;
 }

@@ -72,15 +72,10 @@ import { SnackbarService } from 'app/components/utils/snackbar.service';
       <form [formGroup]="form" (ngSubmit)="edit()" class="mt-5">
       <div class="d-flex justify-content-center align-items-center flex-column">
       <h1>Dizi Ekle</h1>
-     <mat-form-field>
-          <mat-label>kapak:</mat-label>
-          <input formControlName="kapak" matInput>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>fragman:</mat-label>
-          <input formControlName="fragman" matInput>
-        </mat-form-field>
+      Kapak : 
+      <input type="file" (change)="onKapakSelected($event)" name="file"  required />
+      Fragman : 
+      <input type="file" (change)="onFragmanSelected($event)" name="file"  required />
         <mat-form-field>
           <mat-label>name:</mat-label>
           <input formControlName="name" matInput>
@@ -212,9 +207,8 @@ export class DiziTableComponent implements OnInit {
 
 
   edit() {
-
     let req: CreateDiziRequest = {
-      diziCategoryId: this.form.controls['diziCategoryId'].value,
+      diziCategoryDkid: this.form.controls['diziCategoryId'].value,
       konu: this.form.controls['konu'].value,
       name: this.form.controls['name'].value,
       yili: this.form.controls['yili'].value,
@@ -222,27 +216,33 @@ export class DiziTableComponent implements OnInit {
     }
     this.diziService.addDizi(req).subscribe(res => {
       if (res) {
-        console.log(res);
-        this.diziService.uploadFragman1(res.id, this.form.controls['fragman'].value).subscribe(res => {
-          console.log(res);
+        console.log('DİZİ EKLENDİ ----->', res);
+        let uploadKapakReq: DiziIdUploadkapakBody = {
+          file: this.kapak
+        }
+        let uploadFragmanReq: DiziIdUploadfragmanBody = {
+          file: this.kapak
+        }
+        this.diziService.uploadFragman1(res.id!, uploadFragmanReq).subscribe(res => {
+          console.log('FRAGMAN EKLENDİ ----->', res);
         });
-        this.diziService.uploadKapak1(res.id, this.form.controls['kapak'].value).subscribe(res => {
-          console.log(res);
+        this.diziService.uploadKapak1(res.id!, uploadKapakReq).subscribe(res => {
+          console.log('KAPAK EKLENDİ ----->', res);
         });
         for (let i = 0; i < this.bolums.length; i++) {
           console.log(this.bolums.at(i).get('bolum')!.value);
           const req: AddBolumRequest = {
-            bolum: this.bolums.at(i).get('bolum')!.value(),
+            bolum: this.bolums.at(i).get('bolum')!.value,
             diziId: res.id
           }
           this.bolumService.addBolum(req).subscribe(res => {
-            this.bolumService.uploadBolum(res.id, this.bolums.at(i).get('upload')!.value()).subscribe(res => {
+            this.bolumService.uploadBolum(res.id!, this.bolums.at(i).get('upload')!.value()).subscribe(res => {
+              console.log('BOLUM EKLENDİ ----->', res);
+
               this.snackbar.openSnackBar('Dizi Eklendi')
             })
           })
         }
-
-
       }
     })
   }
@@ -255,5 +255,18 @@ export class DiziTableComponent implements OnInit {
 
   get bolums() {
     return this.form.controls["bolums"] as FormArray;
+  }
+
+  kapak!: Blob;
+  fragman!: Blob;
+
+  onKapakSelected(event: any): void {
+    this.kapak = new Blob([event.target.files[0]]);
+    console.log(this.kapak);
+
+  }
+  onFragmanSelected(event: any): void {
+    this.fragman = new Blob([event.target.files[0]]);
+    console.log(this.fragman);
   }
 }

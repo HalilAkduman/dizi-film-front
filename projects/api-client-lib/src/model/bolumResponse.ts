@@ -10,7 +10,10 @@
  * Do not edit the class manually.
  */
 
-export interface UpdateDiziCategoryRequest { 
-    dkid?: number;
-    name?: string;
+export interface BolumResponse { 
+    id?: number;
+    bolum?: string;
+    path?: string;
+    diziId?: number;
+    diziName?: string;
 }

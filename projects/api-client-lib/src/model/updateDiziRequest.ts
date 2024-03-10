@@ -16,5 +16,5 @@ export interface UpdateDiziRequest {
     konu?: string;
     yili?: string;
     yonetmen?: string;
-    filmCategoryId?: number;
+    diziCategoryDkid?: number;
 }

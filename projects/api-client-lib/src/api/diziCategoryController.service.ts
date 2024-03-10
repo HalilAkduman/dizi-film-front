@@ -297,7 +297,7 @@ export class DiziCategoryControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('put',`${this.basePath}/dizi-categori/admin/add-dizi-category`,
+        return this.httpClient.request<any>('put',`${this.basePath}/dizi-categori/admin/update-dizi-category`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

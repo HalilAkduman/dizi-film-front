@@ -22,6 +22,7 @@ import { CreateFilmRequest } from '../model/createFilmRequest';
 import { FilmIdUploadfilmBody } from '../model/filmIdUploadfilmBody';
 import { FilmIdUploadfragmanBody } from '../model/filmIdUploadfragmanBody';
 import { FilmIdUploadkapakBody } from '../model/filmIdUploadkapakBody';
+import { FilmResponse } from '../model/filmResponse';
 import { GetAllFilmsResponse } from '../model/getAllFilmsResponse';
 import { GetFilmByNameResponse } from '../model/getFilmByNameResponse';
 import { ProblemDetails } from '../model/problemDetails';
@@ -70,9 +71,9 @@ export class FilmControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addFilm(body: CreateFilmRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public addFilm(body: CreateFilmRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public addFilm(body: CreateFilmRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addFilm(body: CreateFilmRequest, observe?: 'body', reportProgress?: boolean): Observable<FilmResponse>;
+    public addFilm(body: CreateFilmRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FilmResponse>>;
+    public addFilm(body: CreateFilmRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FilmResponse>>;
     public addFilm(body: CreateFilmRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -99,7 +100,7 @@ export class FilmControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/film/admin/addfilm`,
+        return this.httpClient.request<FilmResponse>('post',`${this.basePath}/film/admin/addfilm`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -153,9 +154,9 @@ export class FilmControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteFilm(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteFilm(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteFilm(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteFilm(id: number, observe?: 'body', reportProgress?: boolean): Observable<FilmResponse>;
+    public deleteFilm(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FilmResponse>>;
+    public deleteFilm(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FilmResponse>>;
     public deleteFilm(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -177,7 +178,7 @@ export class FilmControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<any>('delete',`${this.basePath}/film/admin/deletefilm/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<FilmResponse>('delete',`${this.basePath}/film/admin/deletefilm/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -271,9 +272,9 @@ export class FilmControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateilm(body: UpdateFilmRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public updateilm(body: UpdateFilmRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public updateilm(body: UpdateFilmRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updateilm(body: UpdateFilmRequest, observe?: 'body', reportProgress?: boolean): Observable<FilmResponse>;
+    public updateilm(body: UpdateFilmRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FilmResponse>>;
+    public updateilm(body: UpdateFilmRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FilmResponse>>;
     public updateilm(body: UpdateFilmRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -300,7 +301,7 @@ export class FilmControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('put',`${this.basePath}/film/admin/updatefilm`,
+        return this.httpClient.request<FilmResponse>('put',`${this.basePath}/film/admin/updatefilm`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -319,9 +320,9 @@ export class FilmControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadFilm(filmId: number, body?: FilmIdUploadfilmBody, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public uploadFilm(filmId: number, body?: FilmIdUploadfilmBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public uploadFilm(filmId: number, body?: FilmIdUploadfilmBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadFilm(filmId: number, body?: FilmIdUploadfilmBody, observe?: 'body', reportProgress?: boolean): Observable<FilmResponse>;
+    public uploadFilm(filmId: number, body?: FilmIdUploadfilmBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FilmResponse>>;
+    public uploadFilm(filmId: number, body?: FilmIdUploadfilmBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FilmResponse>>;
     public uploadFilm(filmId: number, body?: FilmIdUploadfilmBody, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (filmId === null || filmId === undefined) {
@@ -349,7 +350,7 @@ export class FilmControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/film/admin/${encodeURIComponent(String(filmId))}/upload-film`,
+        return this.httpClient.request<FilmResponse>('post',`${this.basePath}/film/admin/${encodeURIComponent(String(filmId))}/upload-film`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -368,9 +369,9 @@ export class FilmControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadFragman(filmId: number, body?: FilmIdUploadfragmanBody, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public uploadFragman(filmId: number, body?: FilmIdUploadfragmanBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public uploadFragman(filmId: number, body?: FilmIdUploadfragmanBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadFragman(filmId: number, body?: FilmIdUploadfragmanBody, observe?: 'body', reportProgress?: boolean): Observable<FilmResponse>;
+    public uploadFragman(filmId: number, body?: FilmIdUploadfragmanBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FilmResponse>>;
+    public uploadFragman(filmId: number, body?: FilmIdUploadfragmanBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FilmResponse>>;
     public uploadFragman(filmId: number, body?: FilmIdUploadfragmanBody, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (filmId === null || filmId === undefined) {
@@ -398,7 +399,7 @@ export class FilmControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/film/admin/${encodeURIComponent(String(filmId))}/upload-fragman`,
+        return this.httpClient.request<FilmResponse>('post',`${this.basePath}/film/admin/${encodeURIComponent(String(filmId))}/upload-fragman`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -417,9 +418,9 @@ export class FilmControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public uploadKapak(filmId: number, body?: FilmIdUploadkapakBody, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public uploadKapak(filmId: number, body?: FilmIdUploadkapakBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public uploadKapak(filmId: number, body?: FilmIdUploadkapakBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public uploadKapak(filmId: number, body?: FilmIdUploadkapakBody, observe?: 'body', reportProgress?: boolean): Observable<FilmResponse>;
+    public uploadKapak(filmId: number, body?: FilmIdUploadkapakBody, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FilmResponse>>;
+    public uploadKapak(filmId: number, body?: FilmIdUploadkapakBody, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FilmResponse>>;
     public uploadKapak(filmId: number, body?: FilmIdUploadkapakBody, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (filmId === null || filmId === undefined) {
@@ -447,7 +448,7 @@ export class FilmControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/film/admin/${encodeURIComponent(String(filmId))}/upload-kapak`,
+        return this.httpClient.request<FilmResponse>('post',`${this.basePath}/film/admin/${encodeURIComponent(String(filmId))}/upload-kapak`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,

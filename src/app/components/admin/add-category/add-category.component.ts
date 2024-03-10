@@ -24,7 +24,7 @@ import { MatInputModule } from '@angular/material/input';
   template: `
   <ng-container *ngIf="categories && categories.length !==0"> 
   <ng-container *ngFor="let bolumForm of categories ; let i = index">
-          <p> <b>Id</b> : {{bolumForm.id}} </p>
+          <p> <b>Id</b> : {{bolumForm.fkid}} </p>
           <p> <b>Name</b> : {{bolumForm.name}} </p>
           <hr>
     </ng-container>
