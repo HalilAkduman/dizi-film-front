@@ -5,6 +5,7 @@ import { AnaSayfaComponent } from './components/ana-sayfa/ana-sayfa.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { DiziTableComponent } from './components/admin/dizi-table/dizi-table.component';
 import { FilmTableComponent } from './components/admin/film-dizi/film-dizi.component';
+import { DiziIzleComponent } from './components/dizi-izle/dizi-izle.component';
 
 export const routes: Routes = [
     {
@@ -28,4 +29,14 @@ export const routes: Routes = [
     {
         path: 'film-repo', component: FilmTableComponent
     },
+    {
+        path: 'dizi-izle', component: DiziIzleComponent
+    },
+    {
+        path: 'dizi-izle/:id/:bolum', component: DiziIzleComponent
+    },
+    {
+        path: 'dizi-izle/:id', component: DiziIzleComponent
+    },
+
 ];

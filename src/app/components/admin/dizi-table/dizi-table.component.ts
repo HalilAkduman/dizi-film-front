@@ -63,7 +63,7 @@ import { Observable } from 'rxjs';
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-            <button mat-raised-button color="warn">Sil</button>
+            <button mat-raised-button color="warn" (click)="deleteDizi(element.id)">Sil</button>
           </td>
           </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
@@ -132,6 +132,13 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DiziTableComponent implements OnInit {
+  deleteDizi(element: any) {
+    console.log(element);
+    this.diziService.deleteDizi(element).subscribe(res => {
+      console.log(res);
+    })
+  }
+
   snackbar = inject(SnackbarService);
   dataSource!: AdminGetAllDiziResponse[];
   diziService = inject(DiziControllerService);
