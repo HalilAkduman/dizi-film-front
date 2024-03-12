@@ -5,11 +5,12 @@ import { NgIf } from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from '../utils/local-storage.service';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, ApiModule, NgIf],
+  imports: [ReactiveFormsModule, ApiModule, NgIf, RegisterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

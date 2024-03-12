@@ -19,6 +19,7 @@ a {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    overflow-x: hidden;
 }
 
 .mat-mdc-row:hover {
@@ -70,7 +71,7 @@ header {
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-areas:
         "nt mn mn sb . . . ";
-    background-color: var(--primary) !important;
+    background-color: #251616!important;
     width: 100%;
     margin-bottom: 0px;
 }

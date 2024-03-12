@@ -29,7 +29,8 @@ import { Observable } from 'rxjs';
   ],
 
   template: `
-  <div class="container">
+  <div class="bg-white mt-5">
+  <div class="container ">
   <button mat-raised-button color="primary" class="m-5" backButton> <-- Geri Dön</button>
   <div class="row">
     <div class="col-6">
@@ -125,6 +126,8 @@ import { Observable } from 'rxjs';
         </div>
       </div>
   </div>
+  </div>
+
   
 
   `,

@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     }, 1000)
   }
 
-
+  showMessage: boolean = false;
   submit() {
     // let req: EmailRequest = Object.create(null);
     // req.email = this.form.controls['email'].value;
@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
   register() {
     this.form.controls['geciciDogrulamaKodu'].setValue(this.validationCode);
     this.kullaniciService.register(this.form.value).subscribe(res => {
-      this.router.navigateByUrl('giris-yap')
+      this.showMessage = true
     })
   }
 }
