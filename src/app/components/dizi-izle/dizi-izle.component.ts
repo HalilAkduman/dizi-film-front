@@ -26,6 +26,7 @@ export class DiziIzleComponent implements OnInit {
       this.activeId = a['id'];
       this.service.getDiziById(a['id']).subscribe(res => {
         this.dizi = res;
+        //TODO : BUranın tamamı silinecek
         this.dizi = {
           ...this.dizi,
           bolums: [
@@ -51,6 +52,7 @@ export class DiziIzleComponent implements OnInit {
             },
           ]
         };
+        //
         if (!a['bolum']) {
           this.activeBolum = this.dizi.bolums[0]
         } else {

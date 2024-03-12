@@ -1,7 +1,8 @@
 <div class="movie-slider">
     <div class="movie-list">
         <div *ngFor="let dizi of dizis" class="movie-card">
-            <button class="favori" mat-raised-button color="primary">Favori <b style="font-size: larger;">+</b></button>
+            <button (click)="addFavori(dizi.id)" class="favori" mat-raised-button color="primary">Favori <b
+                    style="font-size: larger;">+</b></button>
             <img src="https://picsum.photos/182/300" alt="movie poster" class="movie-poster">
             <div class="movie-info">
                 <h1 class="movie-title">{{dizi.name}}</h1>
