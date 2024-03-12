@@ -16,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule
   ],
   template: `
-    <div class="container">
+    <div class="container mt-5">
       <div class="row">
         <div class="p-3">
           <button class="m-3" color="primary" mat-raised-button routerLink="/dizi-repo">Dizi Listesi</button>

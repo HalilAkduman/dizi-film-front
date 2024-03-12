@@ -1,13 +1,23 @@
-<div class="movie-slider">
-    <div class="movie-list">
-        <div *ngFor="let dizi of dizis" class="movie-card">
-            <button (click)="addFavori(dizi.id)" class="favori" mat-raised-button color="primary">Favori <b
-                    style="font-size: larger;">+</b></button>
-            <img src="https://picsum.photos/182/300" alt="movie poster" class="movie-poster">
-            <div class="movie-info">
-                <h1 class="movie-title">{{dizi.name}}</h1>
-                <button (click)="goToDizi(dizi.name)" class="btn-watch">Watch Now</button>
-            </div>
-        </div>
-    </div>
+<h1 class="heading mt-5" id="home">Favori Dizilerim</h1>
+<div class="box">
+    <ng-container *ngFor="let dizi of dizis">
+        <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
+            <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p1.PNG?raw=true" alt="">
+            <span style="color: white;">
+                {{dizi.name}}
+            </span>
+        </a>
+    </ng-container>
+</div>
+
+<h1 class="heading mt-5" id="home">Tüm Diziler</h1>
+<div class="box">
+    <ng-container *ngFor="let dizi of dizis">
+        <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
+            <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p1.PNG?raw=true" alt="">
+            <span style="color: white;">
+                {{dizi.name}}
+            </span>
+        </a>
+    </ng-container>
 </div>

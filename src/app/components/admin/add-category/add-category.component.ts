@@ -40,32 +40,6 @@ import { MatInputModule } from '@angular/material/input';
         <button mat-raised-button color="primary" type="submit">Ekle</button>
       </div>
     </form>
-    <form [formGroup]="addFilmform" (ngSubmit)="addFilm()" class="mt-5">
-      <div class="d-flex justify-content-center align-items-center flex-column">
-      <h1>Film Ekle</h1>
-     <mat-form-field>
-            <mat-label>Film İsmi:</mat-label>
-          <input formControlName="name" matInput>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>konu:</mat-label>
-          <input formControlName="konu" matInput>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Yılı:</mat-label>
-          <input formControlName="yili" matInput>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Yönetmen:</mat-label>
-          <input formControlName="yonetmen" matInput>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>filmCategoryId:</mat-label>
-          <input formControlName="filmCategoryId" matInput>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Ekle</button>
-      </div>
-    </form>
   `,
   styleUrl: './add-category.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

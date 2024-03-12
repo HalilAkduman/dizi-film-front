@@ -21,45 +21,19 @@ import { MatInputModule } from '@angular/material/input';
     NgIf
   ],
   template: `
-  <ng-container *ngIf="categories && categories.length !==0"> 
-  <ng-container *ngFor="let bolumForm of categories ; let i = index">
+  @if (categories && categories.length !==0 ) {
+    <div *ngFor="let bolumForm of categories">
           <p> <b>Id</b> : {{bolumForm.dkid}} </p>
           <p> <b>Name</b> : {{bolumForm.name}} </p>
           <hr>
-    </ng-container>
-</ng-container>
-       <form [formGroup]="categoryform" (ngSubmit)="submit()" class="mt-5">
+    </div>
+  }
+    <form [formGroup]="categoryform" (ngSubmit)="submit()" class="mt-5">
       <div class="d-flex justify-content-center align-items-center flex-column">
       <h1>Kategori Ekle</h1>
         <mat-form-field>
           <mat-label>Kategori Ekle:</mat-label>
           <input formControlName="name" matInput>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Ekle</button>
-      </div>
-    </form>
-    <form [formGroup]="adddiziform" (ngSubmit)="addFilm()" class="mt-5">
-      <div class="d-flex justify-content-center align-items-center flex-column">
-      <h1>Dizi Ekle</h1>
-     <mat-form-field>
-          <mat-label>Dizi İsmi:</mat-label>
-          <input formControlName="name" matInput>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>konu:</mat-label>
-          <input formControlName="konu" matInput>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Yılı:</mat-label>
-          <input formControlName="yili" matInput>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Yönetmen:</mat-label>
-          <input formControlName="yonetmen" matInput>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>diziCategoryId:</mat-label>
-          <input formControlName="diziCategoryId" matInput>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Ekle</button>
       </div>
