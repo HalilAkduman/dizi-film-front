@@ -226,41 +226,53 @@ export class DiziTableComponent implements OnInit {
 
     this.diziService.addDizi(req).subscribe(res => {
       if (res) {
-        console.log('DİZİ EKLENDİ ----->', res);
-
         // Kapak dosyasını yükle
-        this.upload(this.kapak, `http://localhost:8080/dizi/admin/${res.id!}/upload-kapak`).subscribe(kapakRes => {
+        this.upload(this.kapak, `http://localhost:8080/dizi/admin/${res.id!}/upload-kapak`).then(kapakRes => {
           console.log('Kapak yüklendi', kapakRes);
-
           // Fragman dosyasını yükle
-          this.upload(this.fragman, `http://localhost:8080/dizi/admin/${res.id!}/upload-fragman`).subscribe(fragmanRes => {
+          this.upload(this.fragman, `http://localhost:8080/dizi/admin/${res.id!}/upload-fragman`).then(fragmanRes => {
             console.log('Fragman yüklendi', fragmanRes);
-            for (let i = 0; i < this.bolums.length; i++) {
-              const req: AddBolumRequest = {
-                bolum: this.bolums.at(i).get('bolum')!.value,
-                diziId: res.id
-              };
-              this.bolumService.addBolum(req).subscribe(bolumRes => {
-                this.upload(this.bolum, `http://localhost:8080/bolum/admin/${bolumRes.id!}/upload-bolum`).subscribe(res => {
-                  console.log('BOLUM EKLENDİ');
-                })
-              });
-            }
             this.snackbar.openSnackBar('Dizi Eklendi');
-          });
+          }).then(x => {
+            this.addBolum(res.id)
+          })
         });
       }
     });
   }
 
+  addBolum(a: any) {
+    for (let i = 0; i < this.bolums.length; i++) {
+      const req: AddBolumRequest = {
+        bolum: this.bolums.at(i).get('bolum')!.value,
+        diziId: a
+      };
+      this.bolumService.addBolum(req).subscribe(bolumRes => {
+        this.upload(this.bolum, `http://localhost:8080/bolum/admin/${bolumRes.id!}/upload-bolum`).then(res => {
+          console.log('BOLUM EKLENDİ');
+        })
+      });
+    }
+  }
 
-  public upload(file: File, path: string): Observable<any> {
-    let formData: FormData = new FormData();
-    formData.append('file', file, file.name);
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
-    return this.http.post(path, formData, { reportProgress: true, observe: 'events', headers, responseType: 'text' });
+
+  public upload(file: File, path: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+      let headers = new HttpHeaders();
+      headers.append('Content-Type', 'multipart/form-data');
+      headers.append('Accept', 'application/json');
+      this.http.post(path, formData, { reportProgress: true, observe: 'events', headers, responseType: 'text' }).subscribe({
+        next: (res) => {
+          resolve(res);
+        },
+        error: (err) => {
+          reject(err)
+        }
+      })
+    })
+
   }
 
   getRow(row: any) {
@@ -274,7 +286,7 @@ export class DiziTableComponent implements OnInit {
 
   kapak!: File;
   fragman!: File;
-  bolum !: File;
+  bolum!: File;
 
   onKapakSelected(event: any): void {
     this.kapak = event.target.files[0];

@@ -15,7 +15,7 @@ export class DiziComponent implements OnInit {
   dizis!: DiziResponse[];
   favoriService = inject(FavoriDizilerControllerService)
   ngOnInit(): void {
-    this.dizi.adminGetAllDizi().subscribe(res => {
+    this.dizi.getAllDizi().subscribe(res => {
       this.dizis = res;
       console.log(res);
 
@@ -30,7 +30,7 @@ export class DiziComponent implements OnInit {
 
   addFavori(id: any) {
     this.favoriService.addFavoriDizi(id).subscribe(res => {
-      
+
     })
   }
 
