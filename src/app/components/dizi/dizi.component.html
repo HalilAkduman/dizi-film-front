@@ -2,7 +2,7 @@
 <div class="box">
     <ng-container *ngFor="let dizi of dizis">
         <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
-            <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p1.PNG?raw=true" alt="">
+            <img [src]="dizi.kapakPath" alt="">
             <span style="color: white;">
                 {{dizi.name}}
             </span>
@@ -14,7 +14,7 @@
 <div class="box">
     <ng-container *ngFor="let dizi of dizis">
         <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
-            <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p1.PNG?raw=true" alt="">
+            <img [src]="dizi.kapakPath" alt="">
             <span style="color: white;">
                 {{dizi.name}}
             </span>

@@ -13,7 +13,7 @@
 export interface BolumResponse { 
     id?: number;
     bolum?: string;
-    path?: string;
+    bolumPath?: string;
     diziId?: number;
     diziName?: string;
 }

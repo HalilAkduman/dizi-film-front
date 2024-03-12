@@ -12,4 +12,7 @@
 
 export interface GeKullaniciFavoriteResponseFilm { 
     filmName?: string;
+    kapakPath?: string;
+    fragmanPath?: string;
+    filmPath?: string;
 }

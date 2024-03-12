@@ -13,5 +13,5 @@
 export interface GetAllBolumResponse { 
     diziName?: string;
     bolum?: string;
-    path?: string;
+    bolumPath?: string;
 }

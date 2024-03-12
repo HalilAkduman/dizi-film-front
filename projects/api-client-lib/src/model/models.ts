@@ -33,6 +33,7 @@ export * from './getDiziByCategoryResponse';
 export * from './getDiziByNameResponse';
 export * from './getFilmByCategoryResponse';
 export * from './getFilmByNameResponse';
+export * from './kullaniciBolumResponse';
 export * from './kullaniciGirisRequests';
 export * from './kullaniciKayitRequests';
 export * from './problemDetails';

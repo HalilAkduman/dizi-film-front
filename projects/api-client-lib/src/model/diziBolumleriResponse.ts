@@ -12,4 +12,5 @@
 
 export interface DiziBolumleriResponse { 
     bolum?: string;
+    bolumPath?: string;
 }

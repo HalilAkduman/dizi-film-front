@@ -9,11 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { KullaniciBolumResponse } from './kullaniciBolumResponse';
 
-export interface GeKullaniciFavoriteResponseDizi { 
-    diziName?: string;
-    diziKapakPath?: string;
-    diziFragmanPath?: string;
-    bolumler?: Array<KullaniciBolumResponse>;
+export interface KullaniciBolumResponse { 
+    bolum?: string;
+    bolumPath?: string;
 }

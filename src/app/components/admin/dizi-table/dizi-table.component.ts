@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { BackButtonDirective } from 'app/components/utils/back-button.directive';
-import { AddBolumRequest, AdminGetAllDiziResponse, BolumControllerService, CreateDiziRequest, DiziBolumleriResponse, DiziControllerService, DiziIdUploadfragmanBody, DiziIdUploadkapakBody } from '../../../../../dist/api-client-lib';
+import { AddBolumRequest, AdminGetAllDiziResponse, BolumControllerService, CreateDiziRequest, DiziBolumleriResponse, DiziControllerService, DiziIdUploadfragmanBody, DiziIdUploadkapakBody, UpdateBolumRequest } from '../../../../../dist/api-client-lib';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -107,11 +107,9 @@ import { Observable } from 'rxjs';
                            formControlName="bolum"
                            placeholder="Bölüm ismi">
                 </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <input matInput
-                           formControlName="upload"
-                           placeholder="upload">
-                </mat-form-field>
+
+                <h3>Upload</h3>
+                <input type="file" (change)="onBolumSelected($event)" name="file"  required />
                 <button (click)="deleteLesson(i)"> Sil </button>
             </div>
         </ng-container>
@@ -196,7 +194,6 @@ export class DiziTableComponent implements OnInit {
   addLesson() {
     const lessonForm = this.fb.group({
       bolum: ['', Validators.required],
-      upload: ['', Validators.required]
     });
 
     this.bolums.push(lessonForm);
@@ -212,7 +209,6 @@ export class DiziTableComponent implements OnInit {
       this.form = this.fb.group(
         {
           bolum: [bolum.bolum, Validators.required],
-          upload: ['', Validators.required]
         }
       )
     })
@@ -226,38 +222,35 @@ export class DiziTableComponent implements OnInit {
       name: this.form.controls['name'].value,
       yili: this.form.controls['yili'].value,
       yonetmen: this.form.controls['yonetmen'].value
-    }
+    };
+
     this.diziService.addDizi(req).subscribe(res => {
       if (res) {
         console.log('DİZİ EKLENDİ ----->', res);
-        let uploadKapakReq: DiziIdUploadkapakBody = {
-          file: this.kapak
-        }
-        let uploadFragmanReq: DiziIdUploadfragmanBody = {
-          file: this.fragman
-        }
-        this.upload(this.kapak, `http://localhost:8080/dizi/admin/${res.id!}/upload-kapak`).subscribe(res => {
-          console.log('kapak');
-        })
-        this.upload(this.fragman, `http://localhost:8080/dizi/admin/${res.id!}/upload-fragman`).subscribe(res => {
-          console.log('fragman');
-        })
-        for (let i = 0; i < this.bolums.length; i++) {
-          console.log(this.bolums.at(i).get('bolum')!.value);
-          const req: AddBolumRequest = {
-            bolum: this.bolums.at(i).get('bolum')!.value,
-            diziId: res.id
-          }
-          this.bolumService.addBolum(req).subscribe(res => {
-            this.bolumService.uploadBolum(res.id!, this.bolums.at(i).get('upload')!.value()).subscribe(res => {
-              console.log('BOLUM EKLENDİ ----->', res);
 
-              this.snackbar.openSnackBar('Dizi Eklendi')
-            })
-          })
-        }
+        // Kapak dosyasını yükle
+        this.upload(this.kapak, `http://localhost:8080/dizi/admin/${res.id!}/upload-kapak`).subscribe(kapakRes => {
+          console.log('Kapak yüklendi', kapakRes);
+
+          // Fragman dosyasını yükle
+          this.upload(this.fragman, `http://localhost:8080/dizi/admin/${res.id!}/upload-fragman`).subscribe(fragmanRes => {
+            console.log('Fragman yüklendi', fragmanRes);
+            for (let i = 0; i < this.bolums.length; i++) {
+              const req: AddBolumRequest = {
+                bolum: this.bolums.at(i).get('bolum')!.value,
+                diziId: res.id
+              };
+              this.bolumService.addBolum(req).subscribe(bolumRes => {
+                this.upload(this.bolum, `http://localhost:8080/bolum/admin/${bolumRes.id!}/upload-bolum`).subscribe(res => {
+                  console.log('BOLUM EKLENDİ');
+                })
+              });
+            }
+            this.snackbar.openSnackBar('Dizi Eklendi');
+          });
+        });
       }
-    })
+    });
   }
 
 
@@ -267,10 +260,8 @@ export class DiziTableComponent implements OnInit {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
-
     return this.http.post(path, formData, { reportProgress: true, observe: 'events', headers, responseType: 'text' });
   }
-
 
   getRow(row: any) {
     this.selectedDizi = row;
@@ -283,6 +274,7 @@ export class DiziTableComponent implements OnInit {
 
   kapak!: File;
   fragman!: File;
+  bolum !: File;
 
   onKapakSelected(event: any): void {
     this.kapak = event.target.files[0];
@@ -290,5 +282,8 @@ export class DiziTableComponent implements OnInit {
   }
   onFragmanSelected(event: any): void {
     this.fragman = event.target.files[0];
+  }
+  onBolumSelected(event: any): void {
+    this.bolum = event.target.files[0];
   }
 }
