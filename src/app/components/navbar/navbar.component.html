@@ -1,13 +1,22 @@
-<mat-toolbar color="primary">
-    <span>Film-Dizi</span>
-    <span class="example-spacer"></span>
-    @if (user) {
-    <button mat-button routerLink="admin">Admin</button>
-    <button mat-button routerLink="ana-sayfa">Ana Sayfa</button>
-    <h2 class="greeting">Hoşgeldin, {{user.name}} {{user.surname}}</h2>
-    <button mat-button color="warn" (click)="logOut()">Çıkış Yap</button>
-    } @else {
-    <button mat-button routerLink="giris-yap">Login</button>
-    <button mat-button routerLink="kayıt-ol">Kayıt Ol</button>
-    }
-</mat-toolbar>
+<header>
+    <div class="netflixLogo">
+        <a id="logo" routerLink="ana-sayfa"><img
+                src="assets/zafer-bilen-favicon-color.png"
+                alt="Logo Image"></a>
+    </div>
+    <nav class="main-nav">
+        @if (user) {
+        <a routerLink="ana-sayfa">Ana Sayfa</a>
+        } @else {
+        <a routerLink="giris-yap">Login</a>
+        <a routerLink="kayıt-ol">Kayıt Ol</a>
+        }
+    </nav>
+    <nav class="sub-nav">
+        @if (user) {
+        <a class="greeting">Hoşgeldin, {{user.name}} {{user.surname}} ({{user.role}} )</a>
+        <a routerLink="admin" *ngIf="user.role === 'ADMIN'">Admin Ekranı</a>
+        <a (click)="logOut()">Çıkış Yap</a>
+        }
+    </nav>
+</header>
