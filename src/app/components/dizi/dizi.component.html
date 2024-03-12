@@ -13,11 +13,14 @@
 <h1 class="heading mt-5" id="home">Tüm Diziler</h1>
 <div class="box">
     <ng-container *ngFor="let dizi of dizis">
-        <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
-            <img [src]="dizi.kapakPath" alt="">
-            <span style="color: white;">
-                {{dizi.name}}
-            </span>
-        </a>
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <button (click)="addFavori(dizi.id)" color="primary" mat-button>Favorilere Ekle</button>
+            <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
+                <img [src]="dizi.kapakPath" alt="">
+                <span style="color: white;">
+                    {{dizi.name}}
+                </span>
+            </a>
+        </div>
     </ng-container>
 </div>

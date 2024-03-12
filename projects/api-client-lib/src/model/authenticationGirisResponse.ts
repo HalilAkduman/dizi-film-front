@@ -9,6 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { GeKullaniciFavoriteResponseDizi } from './geKullaniciFavoriteResponseDizi';
+import { GeKullaniciFavoriteResponseFilm } from './geKullaniciFavoriteResponseFilm';
 
 export interface AuthenticationGirisResponse { 
     token?: string;
@@ -17,6 +19,8 @@ export interface AuthenticationGirisResponse {
     surname?: string;
     email?: string;
     role?: AuthenticationGirisResponse.RoleEnum;
+    favoriDiziler?: Array<GeKullaniciFavoriteResponseDizi>;
+    favoriFilmler?: Array<GeKullaniciFavoriteResponseFilm>;
 }
 export namespace AuthenticationGirisResponse {
     export type RoleEnum = 'ADMIN' | 'NORMAL';

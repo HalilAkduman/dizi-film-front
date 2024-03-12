@@ -228,15 +228,16 @@ export class DiziTableComponent implements OnInit {
       if (res) {
         // Kapak dosyasını yükle
         this.upload(this.kapak, `http://localhost:8080/dizi/admin/${res.id!}/upload-kapak`).then(kapakRes => {
-          console.log('Kapak yüklendi', kapakRes);
-          // Fragman dosyasını yükle
+          console.log('kapak eklendi');
+          
+        }).finally(() => {
           this.upload(this.fragman, `http://localhost:8080/dizi/admin/${res.id!}/upload-fragman`).then(fragmanRes => {
-            console.log('Fragman yüklendi', fragmanRes);
+            console.log('Fragman yüklendi');
             this.snackbar.openSnackBar('Dizi Eklendi');
-          }).then(x => {
+          }).finally(() => {
             this.addBolum(res.id)
           })
-        });
+        })
       }
     });
   }

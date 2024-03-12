@@ -19,9 +19,6 @@ export class AnaSayfaComponent implements OnInit {
     this.authService._currentUser.subscribe(res => {
       console.log(res);
     })
-    this.filmService.getAllFilms().subscribe(res => {
-      console.log(res);
-    })
   }
 
 }

@@ -18,10 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { AddBolumRequest } from '../model/addBolumRequest';
-import { AdminGetAllBolumResponse } from '../model/adminGetAllBolumResponse';
 import { BolumIdUploadbolumBody } from '../model/bolumIdUploadbolumBody';
 import { BolumResponse } from '../model/bolumResponse';
-import { GetAllBolumResponse } from '../model/getAllBolumResponse';
 import { ProblemDetails } from '../model/problemDetails';
 import { UpdateBolumRequest } from '../model/updateBolumRequest';
 
@@ -111,42 +109,6 @@ export class BolumControllerService {
     /**
      * 
      * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public adminGetAllBolumResponse(observe?: 'body', reportProgress?: boolean): Observable<Array<AdminGetAllBolumResponse>>;
-    public adminGetAllBolumResponse(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AdminGetAllBolumResponse>>>;
-    public adminGetAllBolumResponse(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AdminGetAllBolumResponse>>>;
-    public adminGetAllBolumResponse(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Array<AdminGetAllBolumResponse>>('get',`${this.basePath}/bolum/admin/getallbolums`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -176,42 +138,6 @@ export class BolumControllerService {
         ];
 
         return this.httpClient.request<BolumResponse>('delete',`${this.basePath}/bolum/admin/deletebolum/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getAllBolumResponse(observe?: 'body', reportProgress?: boolean): Observable<Array<GetAllBolumResponse>>;
-    public getAllBolumResponse(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<GetAllBolumResponse>>>;
-    public getAllBolumResponse(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<GetAllBolumResponse>>>;
-    public getAllBolumResponse(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Array<GetAllBolumResponse>>('get',`${this.basePath}/bolum/getallbolums`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

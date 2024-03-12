@@ -9,11 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { DiziBolumleriResponse } from './diziBolumleriResponse';
 
 export interface GetAllDiziResponse { 
+    id?: number;
     name?: string;
     kapakPath?: string;
     konu?: string;
+    fragmanPath?: string;
     diziCategoryName?: string;
-    bolumPath?: string;
+    bolum?: Array<DiziBolumleriResponse>;
 }

@@ -1,7 +1,6 @@
 export * from './addBolumRequest';
 export * from './addFavoriDiziRequest';
 export * from './addFavoriFilmRequest';
-export * from './adminGetAllBolumResponse';
 export * from './adminGetAllCategoryResponse';
 export * from './adminGetAllDiziCategoryResponse';
 export * from './adminGetAllDiziResponse';
@@ -24,7 +23,6 @@ export * from './filmIdUploadkapakBody';
 export * from './filmResponse';
 export * from './geKullaniciFavoriteResponseDizi';
 export * from './geKullaniciFavoriteResponseFilm';
-export * from './getAllBolumResponse';
 export * from './getAllDiziCategoryResponse';
 export * from './getAllDiziResponse';
 export * from './getAllFilmCategoryResponse';
