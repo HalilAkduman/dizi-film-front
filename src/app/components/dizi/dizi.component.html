@@ -19,6 +19,7 @@
         <div class="d-flex justify-content-center align-items-center flex-column">
             <button *ngIf="check(dizi.name)" (click)="addFavori(dizi.id)" color="primary" mat-button>Favorilere
                 Ekle</button>
+            <button (click)="goToFragman(dizi.fragmanPath!)" color="primary" mat-button>Fragman İzle</button>
 
             <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
                 <img [src]="dizi.kapakPath" alt="">

@@ -4,6 +4,8 @@ import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { GetAllDiziResponse, FavoriDizilerControllerService, DiziControllerService, DiziResponse, GeKullaniciFavoriteResponseDizi, KullaniciControllerService, RemoveFavoriDiziRequest } from '../../../../dist/api-client-lib';
 import { AuthService } from 'app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FragmanDialogComponent } from '../dialogs/fragman-dialog/fragman-dialog.component';
 
 @Component({
   selector: 'app-dizi',
@@ -13,10 +15,12 @@ import { AuthService } from 'app/services/auth.service';
   styleUrl: './dizi.component.scss'
 })
 export class DiziComponent implements OnInit {
+
   dizis!: DiziResponse[];
   favoriService = inject(FavoriDizilerControllerService);
   favoriDizis!: GeKullaniciFavoriteResponseDizi[];
   kullaniciService = inject(KullaniciControllerService);
+  dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.dizi.getAllDizi().subscribe(res => {
@@ -53,4 +57,12 @@ export class DiziComponent implements OnInit {
     })
   }
 
+
+  goToFragman(fragmanPath: string) {
+    const dialogRef = this.dialog.open(FragmanDialogComponent, {
+      data: { fragmanPath: fragmanPath },
+      width: '700px',
+      height: '450px'
+    });
+  }
 }
