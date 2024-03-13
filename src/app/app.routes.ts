@@ -6,6 +6,7 @@ import { AdminHomeComponent } from './components/admin/admin-home/admin-home.com
 import { DiziTableComponent } from './components/admin/dizi-table/dizi-table.component';
 import { FilmTableComponent } from './components/admin/film-dizi/film-dizi.component';
 import { DiziIzleComponent } from './components/dizi-izle/dizi-izle.component';
+import { FilmIzleComponent } from './components/film-izle/film-izle.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +38,9 @@ export const routes: Routes = [
     },
     {
         path: 'dizi-izle/:id', component: DiziIzleComponent
+    },
+    {
+        path: 'film-izle/:id', component: FilmIzleComponent
     },
 
 ];
