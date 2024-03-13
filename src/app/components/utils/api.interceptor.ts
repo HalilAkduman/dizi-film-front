@@ -21,8 +21,6 @@ export function ApiInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): 
     let token: any;
     if (localStorage.getItem('user')) {
         token = JSON.parse(localStorage.getItem('user')!).token;
-        console.log(token);
-
         let url = req.url.replace('192.168.1.26:8080', 'localhost:8080');
         const dupReq = req.clone({
             url: url,

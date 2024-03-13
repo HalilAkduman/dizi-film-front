@@ -2,7 +2,8 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { GetAllDiziResponse, FavoriDizilerControllerService, DiziControllerService } from '../../../../dist/api-client-lib';
+import { GetAllDiziResponse, FavoriDizilerControllerService, DiziControllerService, DiziResponse, GeKullaniciFavoriteResponseDizi, KullaniciControllerService, RemoveFavoriDiziRequest } from '../../../../dist/api-client-lib';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-dizi',
@@ -12,16 +13,18 @@ import { GetAllDiziResponse, FavoriDizilerControllerService, DiziControllerServi
   styleUrl: './dizi.component.scss'
 })
 export class DiziComponent implements OnInit {
-  dizis!: GetAllDiziResponse[];
+  dizis!: DiziResponse[];
   favoriService = inject(FavoriDizilerControllerService);
-  favoriDizis!: GetAllDiziResponse[];
+  favoriDizis!: GeKullaniciFavoriteResponseDizi[];
+  kullaniciService = inject(KullaniciControllerService);
+
   ngOnInit(): void {
     this.dizi.getAllDizi().subscribe(res => {
       this.dizis = res;
-      console.log(this.dizis);
+    });
 
-      // this.favoriDizis = this.dizis.filter(dizi => dizi.id === ) 
-
+    this.favoriService.getFavorilerByKullanici1().subscribe(res => {
+      this.favoriDizis = res
     })
   }
   dizi = inject(DiziControllerService);
@@ -33,6 +36,19 @@ export class DiziComponent implements OnInit {
 
   addFavori(id: any) {
     this.favoriService.addFavoriDizi(id).subscribe(res => {
+      console.log(res);
+    })
+  }
+
+  check(name: any): boolean {
+    return this.favoriDizis.filter(a => a.diziName === name).length !== 0 ? true : false
+  }
+
+  deleteFav(id: any) {
+    let req: RemoveFavoriDiziRequest = {
+      diziId: id
+    }
+    this.favoriService.removeFavoriteDizi(req).subscribe(res => {
       console.log(res);
     })
   }

@@ -11,5 +11,6 @@
  */
 
 export interface GetAllFilmCategoryResponse { 
+    fkid?: number;
     name?: string;
 }

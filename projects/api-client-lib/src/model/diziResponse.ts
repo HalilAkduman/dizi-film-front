@@ -9,6 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { BolumResponse } from './bolumResponse';
 
 export interface DiziResponse { 
     id?: number;
@@ -18,5 +19,6 @@ export interface DiziResponse {
     yonetmen?: string;
     kapakPath?: string;
     fragmanPath?: string;
+    bolumler?: Array<BolumResponse>;
     diziCategoryDkid?: number;
 }

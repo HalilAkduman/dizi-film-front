@@ -2,7 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DiziControllerService, DiziResponse } from '../../../../dist/api-client-lib';
+import { DiziControllerService, DiziResponse, RemoveFavoriDiziRequest } from '../../../../dist/api-client-lib';
 import { SafePipe } from '../utils/safe-pipe';
 
 @Component({
@@ -26,13 +26,11 @@ export class DiziIzleComponent implements OnInit {
 
       this.activeId = a['id'];
       this.service.getDiziById(a['id']).subscribe(res => {
-        console.log(res);
-
         this.dizi = res;
         if (!a['bolum']) {
           this.activeBolum = this.dizi.bolum[0]
         } else {
-          this.activeBolum = this.dizi.bolum.filter((b: any) => b.name === a['bolum'])[0];
+          this.activeBolum = this.dizi.bolum.filter((b: any) => b.bolum === a['bolum'])[0];
         }
       }
       )
@@ -40,6 +38,7 @@ export class DiziIzleComponent implements OnInit {
   }
 
   changeBolum(name: any) {
+
     this.router.navigate(['/dizi-izle', this.activeId, name])
   }
 }

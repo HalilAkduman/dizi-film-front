@@ -15,8 +15,8 @@ export interface GetAllDiziResponse {
     id?: number;
     name?: string;
     kapakPath?: string;
-    konu?: string;
     fragmanPath?: string;
+    konu?: string;
     diziCategoryName?: string;
     bolum?: Array<DiziBolumleriResponse>;
 }

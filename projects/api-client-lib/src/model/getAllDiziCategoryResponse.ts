@@ -11,5 +11,6 @@
  */
 
 export interface GetAllDiziCategoryResponse { 
+    dkid?: number;
     name?: string;
 }

@@ -1,10 +1,13 @@
 <h1 class="heading mt-5" id="home">Favori Dizilerim</h1>
 <div class="box">
-    <ng-container *ngFor="let dizi of dizis">
-        <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
-            <img [src]="dizi.kapakPath" alt="">
+    <ng-container *ngFor="let dizi of favoriDizis">
+        <!-- TODO : dizi.id olacak -->
+
+        <a style="cursor: pointer;" (click)="goToDizi(dizi.diziName)">
+            <button (click)="deleteFav(dizi)" color="warn" mat-button>Favorilerden çıkar</button>
+            <img [src]="dizi.diziKapakPath" alt="">
             <span style="color: white;">
-                {{dizi.name}}
+                {{dizi.diziName}}
             </span>
         </a>
     </ng-container>
@@ -14,7 +17,9 @@
 <div class="box">
     <ng-container *ngFor="let dizi of dizis">
         <div class="d-flex justify-content-center align-items-center flex-column">
-            <button (click)="addFavori(dizi.id)" color="primary" mat-button>Favorilere Ekle</button>
+            <button *ngIf="check(dizi.name)" (click)="addFavori(dizi.id)" color="primary" mat-button>Favorilere
+                Ekle</button>
+
             <a style="cursor: pointer;" (click)="goToDizi(dizi.name)">
                 <img [src]="dizi.kapakPath" alt="">
                 <span style="color: white;">

@@ -13,7 +13,10 @@
 export interface AdminGetAllFilmsResponse { 
     id?: number;
     name?: string;
-    kapakPath?: string;
     konu?: string;
-    filmCategoryName?: string;
+    yili?: string;
+    yonetmen?: string;
+    kapakPath?: string;
+    fragmanPath?: string;
+    filmPath?: string;
 }

@@ -11,8 +11,13 @@
  */
 
 export interface GetFilmByNameResponse { 
+    id?: number;
     name?: string;
-    kapakPath?: string;
     konu?: string;
+    yili?: string;
+    yonetmen?: string;
+    kapakPath?: string;
+    fragmanPath?: string;
+    filmPath?: string;
     filmCategoryName?: string;
 }
