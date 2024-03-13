@@ -45,6 +45,9 @@ export class DiziComponent implements OnInit {
   }
 
   check(name: any): boolean {
+    if (!(this.favoriDizis.length !== 0)) {
+      return true
+    }
     return this.favoriDizis.filter(a => a.diziName === name).length !== 0 ? true : false
   }
 
