@@ -149,25 +149,6 @@ export class DiziTableComponent implements OnInit {
   form: FormGroup;
   selectedDizi: AdminGetAllDiziResponse = Object.create(null);
 
-  deleteThisOne: AdminGetAllDiziResponse = {
-    bolum: [
-      {
-        bolum: 'Bölüm 1'
-      },
-      {
-        bolum: 'Bölüm 2'
-      },
-      {
-        bolum: 'Bölüm 3'
-      },
-    ],
-    diziCategoryName: 'Korku',
-    id: 1,
-    kapakPath: 'yok',
-    konu: 'denemelik',
-    name: 'Interstaller'
-  }
-
   constructor(private fb: FormBuilder) {
     this.form = fb.group(
       {
@@ -187,7 +168,6 @@ export class DiziTableComponent implements OnInit {
     this.diziService.adminGetAllDizi().subscribe(res => {
       console.log(res);
       this.dataSource = res;
-      this.dataSource.push(this.deleteThisOne)
     });
   }
 

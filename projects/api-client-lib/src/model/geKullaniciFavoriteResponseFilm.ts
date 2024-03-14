@@ -11,6 +11,8 @@
  */
 
 export interface GeKullaniciFavoriteResponseFilm { 
+    id?: number;
+    filmId?: number;
     filmName?: string;
     filmKapakPath?: string;
     filmFragmanPath?: string;

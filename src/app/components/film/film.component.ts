@@ -7,11 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { FragmanDialogComponent } from '../dialogs/fragman-dialog/fragman-dialog.component';
 import { MatButton } from '@angular/material/button';
 import { SafePipe } from '../utils/safe-pipe';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-film',
   standalone: true,
-  imports: [NgFor, NgIf, MatButton, SafePipe],
+  imports: [NgFor, NgIf, MatButton, SafePipe, MatIconModule],
   templateUrl: './film.component.html',
   styleUrl: './film.component.scss'
 })

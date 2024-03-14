@@ -12,6 +12,8 @@
 import { KullaniciBolumResponse } from './kullaniciBolumResponse';
 
 export interface GeKullaniciFavoriteResponseDizi { 
+    id?: number;
+    diziId?: number;
     diziName?: string;
     diziKapakPath?: string;
     diziFragmanPath?: string;
