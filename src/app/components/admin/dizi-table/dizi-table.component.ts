@@ -229,7 +229,7 @@ export class DiziTableComponent implements OnInit {
         // Kapak dosyasını yükle
         this.upload(this.kapak, `http://localhost:8080/dizi/admin/${res.id!}/upload-kapak`).then(kapakRes => {
           console.log('kapak eklendi');
-          
+
         }).finally(() => {
           this.upload(this.fragman, `http://localhost:8080/dizi/admin/${res.id!}/upload-fragman`).then(fragmanRes => {
             console.log('Fragman yüklendi');
@@ -249,12 +249,15 @@ export class DiziTableComponent implements OnInit {
         diziId: a
       };
       this.bolumService.addBolum(req).subscribe(bolumRes => {
-        this.upload(this.bolum, `http://localhost:8080/bolum/admin/${bolumRes.id!}/upload-bolum`).then(res => {
+        this.upload(this.bolum[i], `http://localhost:8080/bolum/admin/${bolumRes.id!}/upload-bolum`).then(res => {
           console.log('BOLUM EKLENDİ');
         })
       });
     }
   }
+
+
+
 
 
   public upload(file: File, path: string): Promise<any> {
@@ -287,7 +290,7 @@ export class DiziTableComponent implements OnInit {
 
   kapak!: File;
   fragman!: File;
-  bolum!: File;
+  bolum: File[] = [];
 
   onKapakSelected(event: any): void {
     this.kapak = event.target.files[0];
@@ -297,6 +300,7 @@ export class DiziTableComponent implements OnInit {
     this.fragman = event.target.files[0];
   }
   onBolumSelected(event: any): void {
-    this.bolum = event.target.files[0];
+    const selectedFile: File = event.target.files[0];
+    this.bolum.push(selectedFile);
   }
 }
