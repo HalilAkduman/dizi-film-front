@@ -71,10 +71,10 @@ import { Observable } from 'rxjs';
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRow(row)"></tr>
 </table>
       </div>
-      <div class="col-6">
+      <div class="col-6 border p-5">
       <form [formGroup]="form" (ngSubmit)="edit()" class="mt-5">
       <div class="d-flex justify-content-center align-items-center flex-column">
-      <h1>Dizi Ekle</h1>
+      <h1 style="color: black!important">Dizi Ekle</h1>
       Kapak : 
       <input type="file" (change)="onKapakSelected($event)" name="file"  required />
       Fragman : 
@@ -100,21 +100,20 @@ import { Observable } from 'rxjs';
           <input formControlName="yonetmen" matInput>
         </mat-form-field>
         <ng-container formArrayName="bolums">
+          <h3 style="color: black!important"> Bölüm Ekle</h3>
         <ng-container *ngFor="let bolumForm of bolums.controls ; let i = index" [formGroupName]="i">
-            <div class="lesson-form-row" >
+            <div class="lesson-form-row">
+            <input type="file" (change)="onBolumSelected($event)" name="file"  required />
                 <mat-form-field appearance="fill">
                     <input matInput
                            formControlName="bolum"
                            placeholder="Bölüm ismi">
                 </mat-form-field>
-
-                <h3>Upload</h3>
-                <input type="file" (change)="onBolumSelected($event)" name="file"  required />
-                <button (click)="deleteLesson(i)"> Sil </button>
+                <i (click)="deleteLesson(i)" class="fa-solid fa-trash sil"></i>
             </div>
         </ng-container>
     </ng-container>
-    Bölüm Ekle
+   
     <button type="button" mat-raised-button (click)="addLesson()">
         add
     </button>
@@ -184,7 +183,6 @@ export class DiziTableComponent implements OnInit {
   }
 
   setForm() {
-    //todo :  upload kısmına bölüm.path gelecek
     this.selectedDizi.bolum?.forEach(bolum => {
       this.form = this.fb.group(
         {

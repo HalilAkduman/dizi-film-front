@@ -69,10 +69,10 @@ import { AdminGetAllFilmsResponse, DiziControllerService, BolumControllerService
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRow(row)"></tr>
 </table>
       </div>
-      <div class="col-6">
+      <div class="col-6 border p-5">
       <form [formGroup]="form" (ngSubmit)="edit()" class="mt-5">
       <div class="d-flex justify-content-center align-items-center flex-column">
-      <h1>Dizi Ekle</h1>
+      <h1 style="color: black!important">Film Ekle</h1>
       Kapak : 
       <input type="file" (change)="onKapakSelected($event)" name="file"  required />
       Fragman : 
@@ -100,9 +100,7 @@ import { AdminGetAllFilmsResponse, DiziControllerService, BolumControllerService
           <input formControlName="yonetmen" matInput>
         </mat-form-field>
         <ng-container formArrayName="bolums">
-    
     </ng-container>
- 
         <button mat-raised-button color="primary" type="submit">Ekle</button>
       </div>
     </form>
@@ -152,7 +150,7 @@ export class FilmTableComponent {
     this.diziService.adminGetAllFilms().subscribe(res => {
       this.dataSource = res;
       console.log(this.dataSource);
-      
+
     });
   }
 
