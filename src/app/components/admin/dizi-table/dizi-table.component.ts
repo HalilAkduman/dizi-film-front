@@ -1,5 +1,5 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
@@ -135,11 +135,13 @@ export class DiziTableComponent implements OnInit {
   deleteDizi(element: any) {
     console.log(element);
     this.diziService.deleteDizi(element).subscribe(res => {
-      console.log(res);
+      this.getDizi();
+      this.cdr.detectChanges()
     })
   }
 
   snackbar = inject(SnackbarService);
+  cdr = inject(ChangeDetectorRef);
   dataSource!: AdminGetAllDiziResponse[];
   diziService = inject(DiziControllerService);
   bolumService = inject(BolumControllerService);
@@ -163,11 +165,15 @@ export class DiziTableComponent implements OnInit {
     )
   }
 
-  ngOnInit(): void {
+  getDizi() {
     this.diziService.adminGetAllDizi().subscribe(res => {
-      console.log(res);
       this.dataSource = res;
+      this.cdr.detectChanges();
     });
+  }
+
+  ngOnInit(): void {
+    this.getDizi()
   }
 
   addLesson() {
@@ -213,7 +219,9 @@ export class DiziTableComponent implements OnInit {
             console.log('Fragman yüklendi');
             this.snackbar.openSnackBar('Dizi Eklendi');
           }).finally(() => {
-            this.addBolum(res.id)
+            this.addBolum(res.id);
+            this.getDizi();
+            this.cdr.detectChanges()
           })
         })
       }

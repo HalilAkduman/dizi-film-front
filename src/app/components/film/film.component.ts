@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { FavoriFilmlerControllerService, FilmControllerService, FilmResponse, GeKullaniciFavoriteResponseFilm, KullaniciControllerService, RemoveFavoriFilmRequest } from '../../../../dist/api-client-lib';
 import { Router } from '@angular/router';
@@ -24,15 +24,22 @@ export class FilmComponent {
   dialog = inject(MatDialog);
   dizi = inject(FilmControllerService);
   route = inject(Router);
+  cdr = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {
+  getDizi() {
     this.dizi.getAllFilms().subscribe(res => {
       this.dizis = res;
+      this.cdr.detectChanges();
     });
 
     this.favoriService.getFavorilerByKullanici().subscribe(res => {
-      this.favoriDizis = res
+      this.favoriDizis = res;
+      this.cdr.detectChanges();
     })
+  }
+
+  ngOnInit(): void {
+    this.getDizi()
   }
 
 
@@ -42,14 +49,11 @@ export class FilmComponent {
 
   addFavori(id: any) {
     this.favoriService.addFavoriFilm(id).subscribe(res => {
-      console.log(res);
+      this.getDizi()
     })
   }
 
   check(name: any): boolean {
-    if (!(this.favoriDizis.length !== 0)) {
-      return true
-    }
     return this.favoriDizis.filter(a => a.filmName === name).length !== 0 ? true : false
   }
 
@@ -59,6 +63,7 @@ export class FilmComponent {
     }
     this.favoriService.removeFavoriteFilm(req).subscribe(res => {
       console.log(res);
+      this.getDizi();
     })
   }
 
@@ -66,7 +71,7 @@ export class FilmComponent {
     const dialogRef = this.dialog.open(FragmanDialogComponent, {
       data: { fragmanPath: fragmanPath },
       width: '700px',
-      height: '450px'
+      height: '445px'
     });
   }
 

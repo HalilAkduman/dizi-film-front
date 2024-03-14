@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { GetAllDiziResponse, FavoriDizilerControllerService, DiziControllerService, DiziResponse, GeKullaniciFavoriteResponseDizi, KullaniciControllerService, RemoveFavoriDiziRequest } from '../../../../dist/api-client-lib';
@@ -21,15 +21,22 @@ export class DiziComponent implements OnInit {
   favoriDizis!: GeKullaniciFavoriteResponseDizi[];
   kullaniciService = inject(KullaniciControllerService);
   dialog = inject(MatDialog);
+  cdr = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {
+  getDizi() {
     this.dizi.getAllDizi().subscribe(res => {
       this.dizis = res;
+      this.cdr.detectChanges()
     });
 
     this.favoriService.getFavorilerByKullanici1().subscribe(res => {
-      this.favoriDizis = res
+      this.favoriDizis = res;
+      this.cdr.detectChanges()
     })
+  }
+
+  ngOnInit(): void {
+    this.getDizi();
   }
   dizi = inject(DiziControllerService);
   route = inject(Router);
@@ -40,14 +47,11 @@ export class DiziComponent implements OnInit {
 
   addFavori(id: any) {
     this.favoriService.addFavoriDizi(id).subscribe(res => {
-      console.log(res);
+      this.getDizi()
     })
   }
 
   check(name: any): boolean {
-    if (!(this.favoriDizis.length !== 0)) {
-      return true
-    }
     return this.favoriDizis.filter(a => a.diziName === name).length !== 0 ? true : false
   }
 
@@ -57,6 +61,7 @@ export class DiziComponent implements OnInit {
     }
     this.favoriService.removeFavoriteDizi(req).subscribe(res => {
       console.log(res);
+      this.getDizi();
     })
   }
 
@@ -65,7 +70,7 @@ export class DiziComponent implements OnInit {
     const dialogRef = this.dialog.open(FragmanDialogComponent, {
       data: { fragmanPath: fragmanPath },
       width: '700px',
-      height: '450px'
+      height: '456px'
     });
   }
 }

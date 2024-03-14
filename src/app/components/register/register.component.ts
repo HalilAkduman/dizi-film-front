@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   validationCode = ''
   showValidationScreen: boolean = false;
-  count: number = 300;
+  count: number = 120;
 
   constructor() {
     this.form = this.fb.group(
@@ -34,25 +34,20 @@ export class RegisterComponent implements OnInit {
     )
   }
   ngOnInit(): void {
-    setInterval(() => {
-      if (this.count !== 0) {
-        this.count -= 1;
-      } else {
-        this.showValidationScreen = false;
-      }
-    }, 1000)
+
   }
 
   showMessage: boolean = false;
   submit() {
-    // let req: EmailRequest = Object.create(null);
-    // req.email = this.form.controls['email'].value;
-    // console.log(req);
-
     let req = this.form.controls['email'].value;
-
     this.kullaniciService.dogrulamaKodu(req).subscribe(res => {
-      console.log(res);
+      setInterval(() => {
+        if (this.count !== 0) {
+          this.count -= 1;
+        } else {
+          this.showValidationScreen = false;
+        }
+      }, 1000)
       this.showValidationScreen = true;
     })
   }
@@ -60,6 +55,7 @@ export class RegisterComponent implements OnInit {
   register() {
     this.form.controls['geciciDogrulamaKodu'].setValue(this.validationCode);
     this.kullaniciService.register(this.form.value).subscribe(res => {
+      this.showValidationScreen = false
       this.showMessage = true
     })
   }

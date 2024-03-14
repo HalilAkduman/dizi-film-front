@@ -1,6 +1,6 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -119,10 +119,10 @@ export class FilmTableComponent {
   deleteDizi(element: any) {
     console.log(element);
     this.diziService.deleteFilm(element).subscribe(res => {
-      console.log(res);
+      this.getFilm();
     })
   }
-
+  cdr = inject(ChangeDetectorRef);
   snackbar = inject(SnackbarService);
   dataSource!: AdminGetAllFilmsResponse[];
   diziService = inject(FilmControllerService);
@@ -145,13 +145,15 @@ export class FilmTableComponent {
       }
     )
   }
-
-  ngOnInit(): void {
+  getFilm() {
     this.diziService.adminGetAllFilms().subscribe(res => {
       this.dataSource = res;
-      console.log(this.dataSource);
-
+      this.cdr.detectChanges()
     });
+  }
+
+  ngOnInit(): void {
+    this.getFilm();
   }
 
   edit() {
@@ -172,6 +174,7 @@ export class FilmTableComponent {
             console.log('Fragman yüklendi');
             this.upload(this.film, `http://localhost:8080/film/admin/${res.id!}/upload-film`).then(fragmanRes => {
               console.log('film yüklendi');
+              this.getFilm();
             })
           })
         })
