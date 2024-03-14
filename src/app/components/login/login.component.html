@@ -7,28 +7,19 @@
     <button type="submit">Giriş Yap</button>
 </form> -->
 
-
-<div class="main ">
-    <input type="checkbox" id="chk" aria-hidden="true">
-    <div class="signup">
-
-        <app-register></app-register>
-
-        <!-- <form>
-            <label for="chk" aria-hidden="true">Kayıt Ol</label>
-            <input type="text" name="txt" placeholder="User name" required="">
-            <input type="email" name="email" placeholder="Email" required="">
-            <input type="password" name="pswd" placeholder="Password" required="">
-            <button>Kayıt Ol</button>
-        </form> -->
-    </div>
-
-    <div class="login">
-        <form [formGroup]="form" (ngSubmit)="submit()">
-            <label for="chk" aria-hidden="true">Login</label>
-            <input id="first-name" type="text" formControlName="email">
-            <input id="last-name" type="password" formControlName="sifre">
-            <button type="submit">Giriş Yap</button>
-        </form>
+<div class="w-100 h-100 d-flex justify-content-center align-items-center">
+    <div class="main ">
+        <input type="checkbox" id="chk" aria-hidden="true">
+        <div class="signup">
+            <app-register></app-register>
+        </div>
+        <div class="login">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <label for="chk" aria-hidden="true">Login</label>
+                <input id="first-name" type="text" formControlName="email">
+                <input id="last-name" type="password" formControlName="sifre">
+                <button type="submit">Giriş Yap</button>
+            </form>
+        </div>
     </div>
 </div>

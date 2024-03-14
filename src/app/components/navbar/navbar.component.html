@@ -1,15 +1,10 @@
 <header style="z-index: 999999999999999999;">
     <div class="netflixLogo">
-        <a id="logo" routerLink="ana-sayfa"><img
-                src="assets/zafer-bilen-favicon-color.png"
-                alt="Logo Image"></a>
+        <a id="logo" routerLink="ana-sayfa"><img src="assets/zafer-bilen-favicon-color.png" alt="Logo Image"></a>
     </div>
     <nav class="main-nav">
         @if (user) {
         <a routerLink="ana-sayfa">Ana Sayfa</a>
-        } @else {
-        <a routerLink="giris-yap">Login</a>
-        <a routerLink="kayıt-ol">Kayıt Ol</a>
         }
     </nav>
     <nav class="sub-nav">
